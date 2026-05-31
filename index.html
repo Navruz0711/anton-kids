@@ -10,9 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
 
     <style>
-        /* =============================================
-           GLOBAL FONTS & VARIABLES
-        ============================================= */
         @font-face {
             font-family: 'Mister Brush';
             src: url('fonts/MisterBrush.ttf') format('truetype');
@@ -30,1315 +27,586 @@
             --border-pink: #eba59e;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Montserrat', Arial, sans-serif;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', Arial, sans-serif; }
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-dark);
-            line-height: 1.5;
-            overflow-x: hidden;
-        }
+        body { background-color: var(--bg-color); color: var(--text-dark); line-height: 1.5; overflow-x: hidden; }
 
         a { text-decoration: none; color: inherit; }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
-        /* =============================================
-           SECTION 1 — HEADER + HERO (blog-1)
-        ============================================= */
-        /* --- HEADER --- */
-        .header {
-            padding: 15px 0;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+        /* HEADER */
+        .header-wrapper {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+            background-color: var(--bg-color);
+            box-shadow: 0 2px 12px rgba(58,56,57,0.08);
         }
-
+        .header { padding: 15px 0; display: flex; align-items: center; justify-content: space-between; }
+        body { padding-top: 92px; }
         .logo img { height: 60px; object-fit: contain; }
-
         .desktop-nav { display: flex; gap: 40px; }
-
-        .desktop-nav a {
-            font-size: 16px;
-            font-weight: 500;
-            color: #3a3a3a;
-            transition: color 0.3s;
-        }
-
+        .desktop-nav a { font-size: 16px; font-weight: 500; color: #3a3a3a; transition: color 0.3s; }
         .desktop-nav a:hover { color: var(--primary-red); }
-
         .header-right { display: flex; align-items: center; gap: 15px; }
-
-        .social-icon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 0.3s;
-        }
-
+        .social-icon { display: flex; align-items: center; justify-content: center; transition: opacity 0.3s; }
         .social-icon:hover { opacity: 0.8; }
         .social-icon img { width: 44px; height: 44px; object-fit: contain; }
 
         .primary-btn {
             background-color: var(--primary-red);
-            color: #fff;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 30px;
-            font-size: 15px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: opacity 0.3s;
+            color: #fff; border: none; padding: 12px 24px;
+            border-radius: 30px; font-size: 15px; cursor: pointer;
+            font-weight: 500; transition: opacity 0.3s;
         }
-
         .primary-btn:hover { opacity: 0.9; }
 
         .hamburger-btn {
-            display: none;
-            flex-direction: column;
-            justify-content: space-between;
-            width: 30px;
-            height: 20px;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            margin-left: 10px;
+            display: none; flex-direction: column; justify-content: space-between;
+            width: 30px; height: 20px; background: transparent;
+            border: none; cursor: pointer; margin-left: 10px;
         }
+        .hamburger-btn span { display: block; width: 100%; height: 3px; background-color: var(--primary-red); border-radius: 3px; }
 
-        .hamburger-btn span {
-            display: block;
-            width: 100%;
-            height: 3px;
-            background-color: var(--primary-red);
-            border-radius: 3px;
-        }
-
-        /* --- MOBILE MENU OVERLAY --- */
+        /* MOBILE MENU */
         .mobile-menu-overlay {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100vh;
-            background-color: var(--bg-color);
-            z-index: 1000;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            transform: translateX(100%);
-            transition: transform 0.3s ease-in-out;
-            overflow-y: auto;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            background-color: var(--bg-color); z-index: 1000; padding: 20px;
+            display: flex; flex-direction: column;
+            transform: translateX(100%); transition: transform 0.3s ease-in-out; overflow-y: auto;
         }
-
         .mobile-menu-overlay.active { transform: translateX(0); }
-
-        .mobile-menu-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 40px;
-        }
-
+        .mobile-menu-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
         .mobile-header-right { display: flex; align-items: center; gap: 15px; }
-
-        .close-btn {
-            background: transparent;
-            border: none;
-            width: 30px; height: 30px;
-            position: relative;
-            cursor: pointer;
-        }
-
-        .close-btn::before, .close-btn::after {
-            content: '';
-            position: absolute;
-            top: 50%; left: 0;
-            width: 100%; height: 2px;
-            background-color: var(--primary-red);
-        }
-
+        .close-btn { background: transparent; border: none; width: 30px; height: 30px; position: relative; cursor: pointer; }
+        .close-btn::before, .close-btn::after { content: ''; position: absolute; top: 50%; left: 0; width: 100%; height: 2px; background-color: var(--primary-red); }
         .close-btn::before { transform: rotate(45deg); }
         .close-btn::after { transform: rotate(-45deg); }
-
-        .mobile-nav {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
+        .mobile-nav { display: flex; flex-direction: column; gap: 20px; margin-bottom: 30px; }
         .mobile-nav a { font-size: 18px; font-weight: 500; color: #333; }
-
         .mobile-menu-btn { width: 100%; padding: 16px; font-size: 16px; margin-bottom: 40px; }
-
         .mobile-contacts { display: flex; flex-direction: column; gap: 20px; margin-bottom: 40px; }
-
         .contact-block { display: flex; flex-direction: column; gap: 5px; }
-
         .contact-label { font-size: 14px; color: #777; }
-
         .contact-value { font-size: 18px; font-weight: 500; color: #333; }
-
         .mobile-legal { display: flex; flex-direction: column; gap: 15px; margin-top: auto; }
-
         .mobile-legal a { font-size: 12px; color: #555; text-decoration: underline; }
 
-        /* --- HERO --- */
-        .hero {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 60px 20px;
-            margin-top: 20px;
-        }
-
+        /* HERO */
+        .hero { display: flex; align-items: center; justify-content: space-between; padding: 60px 20px; margin-top: 20px; }
         .hero-content { max-width: 550px; }
-
-        .hero-title {
-            font-family: 'Mister Brush', cursive;
-            font-size: 72px;
-            color: #313131;
-            line-height: 1.1;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-        }
-
-        .highlight {
-            position: relative;
-            display: inline-block;
-            font-family: 'Mister Brush', cursive;
-        }
-
-        .highlight::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: -20px;
-            width: 100%;
-            height: 30px;
-            background-image: url('images/brush-line.svg');
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-        }
-
-        .hero-subtitle {
-            font-size: 22px;
-            line-height: 1.4;
-            color: #4a4a4a;
-            margin-bottom: 40px;
-            font-weight: 400;
-        }
-
-        .outline-btn {
-            display: inline-block;
-            background: transparent;
-            color: #313131;
-            border: 1px solid var(--primary-red);
-            padding: 15px 40px;
-            border-radius: 40px;
-            font-size: 16px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
+        .hero-title { font-family: 'Mister Brush', cursive; font-size: 72px; color: #313131; line-height: 1.1; margin-bottom: 20px; text-transform: uppercase; }
+        .highlight { position: relative; display: inline-block; font-family: 'Mister Brush', cursive; }
+        .highlight::after { content: ''; position: absolute; left: 0; bottom: -20px; width: 100%; height: 30px; background-image: url('images/brush-line.svg'); background-size: contain; background-repeat: no-repeat; background-position: center; }
+        .hero-subtitle { font-size: 22px; line-height: 1.4; color: #4a4a4a; margin-bottom: 40px; font-weight: 400; }
+        .outline-btn { display: inline-block; background: transparent; color: #313131; border: 1px solid var(--primary-red); padding: 15px 40px; border-radius: 40px; font-size: 16px; font-weight: 500; cursor: pointer; transition: all 0.3s; }
         .outline-btn:hover { background-color: rgba(208, 92, 85, 0.1); }
-
         .hero-image { max-width: 500px; width: 100%; }
         .hero-image img { width: 100%; height: auto; object-fit: contain; }
-
         .mobile-hero-btn { display: none; width: 100%; text-align: center; margin-top: 30px; }
 
-        /* =============================================
-           SECTION 2 — АВТОР ПРОЕКТА (blog-2)
-        ============================================= */
-        .section-author {
-            background-color: var(--bg-color);
-            padding: 60px 0;
-        }
-
-        .section-title-brush {
-            font-family: 'Mister Brush', cursive;
-            font-size: 64px;
-            color: #3b3b3b;
-            text-transform: uppercase;
-            margin-bottom: 40px;
-            letter-spacing: 1.5px;
-            font-weight: normal;
-        }
-
-        .author-top {
-            display: flex;
-            gap: 50px;
-            margin-bottom: 60px;
-            align-items: flex-start;
-        }
-
-        .author-image-wrapper {
-            position: relative;
-            flex-shrink: 0;
-            width: 45%;
-            max-width: 500px;
-        }
-
+        /* SECTION 2 — АВТОР */
+        .section-author { background-color: var(--bg-color); padding: 60px 0; }
+        .section-title-brush { font-family: 'Mister Brush', cursive; font-size: 64px; color: #3b3b3b; text-transform: uppercase; margin-bottom: 40px; letter-spacing: 1.5px; font-weight: normal; }
+        .author-top { display: flex; gap: 50px; margin-bottom: 60px; align-items: flex-start; }
+        .author-image-wrapper { position: relative; flex-shrink: 0; width: 45%; max-width: 500px; }
         .author-photo { width: 100%; border-radius: 15px; display: block; }
-
-        .badge {
-            position: absolute;
-            padding: 10px 25px;
-            border-radius: 30px;
-            font-size: 16px;
-            font-weight: 500;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
-        .badge-red {
-            background-color: var(--primary-red-dark);
-            color: #fff;
-            right: -30px;
-            bottom: 80px;
-            transform: rotate(4deg);
-            z-index: 2;
-        }
-
-        .badge-light {
-            background-color: #eba59e;
-            color: #333;
-            right: -10px;
-            bottom: 20px;
-            transform: rotate(-3deg);
-            z-index: 1;
-            padding: 12px 25px;
-        }
-
+        .badge { position: absolute; padding: 10px 25px; border-radius: 30px; font-size: 16px; font-weight: 500; box-shadow: 0 4px 10px rgba(0,0,0,0.1); cursor: pointer; transition: opacity 0.2s; }
+        .badge:hover { opacity: 0.85; }
+        .badge-red { background-color: var(--primary-red-dark); color: #fff; right: -30px; bottom: 80px; transform: rotate(4deg); z-index: 2; }
+        .badge-light { background-color: #eba59e; color: #333; right: -10px; bottom: 20px; transform: rotate(-3deg); z-index: 1; padding: 12px 25px; }
         .author-info { flex-grow: 1; }
-
         .author-name { font-size: 32px; font-weight: 600; color: #333; margin-bottom: 30px; }
-
         .stats-list { list-style: none; margin-bottom: 40px; }
-
-        .stats-list li {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
-            font-size: 18px;
-            font-weight: 500;
-            color: #333;
-        }
-
-        .stats-list li span.number {
-            font-family: 'Mister Brush', cursive;
-            font-size: 45px;
-            color: var(--primary-red-dark);
-            line-height: 1;
-            font-weight: normal;
-        }
-
-        .cards-grid-author {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
-        .card-author {
-            border: 1px solid #eba59e;
-            border-radius: 15px;
-            padding: 20px 10px;
-            text-align: center;
-            background: transparent;
-        }
-
-        .card-number {
-            font-family: 'Mister Brush', cursive;
-            font-size: 55px;
-            color: #333;
-            line-height: 1;
-            margin-bottom: 5px;
-            font-weight: normal;
-        }
-
-        .card-text-brush {
-            font-family: 'Mister Brush', cursive;
-            font-size: 26px;
-            color: #333;
-            text-transform: uppercase;
-            font-weight: normal;
-        }
-
-        .author-bottom {
-            display: grid;
-            grid-template-columns: 1fr 1.2fr 1fr;
-            gap: 40px;
-        }
-
-        .bottom-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 25px;
-            line-height: 1.4;
-        }
-
+        .stats-list li { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; font-size: 18px; font-weight: 500; color: #333; }
+        .stats-list li a { display: flex; align-items: center; gap: 15px; color: inherit; transition: opacity 0.2s; }
+        .stats-list li a:hover { opacity: 0.75; }
+        .stats-list li span.number { font-family: 'Mister Brush', cursive; font-size: 45px; color: var(--primary-red-dark); line-height: 1; font-weight: normal; }
+        .cards-grid-author { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .card-author { border: 1px solid #eba59e; border-radius: 15px; padding: 20px 10px; text-align: center; background: transparent; cursor: pointer; transition: background 0.2s; }
+        .card-author:hover { background: rgba(235,165,158,0.15); }
+        .card-number { font-family: 'Mister Brush', cursive; font-size: 55px; color: #333; line-height: 1; margin-bottom: 5px; font-weight: normal; }
+        .card-text-brush { font-family: 'Mister Brush', cursive; font-size: 26px; color: #333; text-transform: uppercase; font-weight: normal; }
+        .author-bottom { display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 40px; }
+        .bottom-title { font-size: 18px; font-weight: 600; color: #333; margin-bottom: 25px; line-height: 1.4; }
         .highlight-line { position: relative; display: inline-block; }
-
-        .highlight-line::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: -5px;
-            width: 100%;
-            height: 10px;
-            background-image: url('images/red-brush-line.svg');
-            background-size: 100% 100%;
-            background-repeat: no-repeat;
-        }
-
+        .highlight-line::after { content: ''; position: absolute; left: 0; bottom: -5px; width: 100%; height: 10px; background-image: url('images/red-brush-line.svg'); background-size: 100% 100%; background-repeat: no-repeat; }
         .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-
-        .btn-outline-sm {
-            border: 1px solid var(--primary-red-dark);
-            color: #333;
-            padding: 10px;
-            border-radius: 25px;
-            text-align: center;
-            font-size: 14px;
-            font-weight: 500;
-            background: transparent;
-        }
-
-        .btn-solid-sm {
-            background-color: var(--primary-red-dark);
-            color: #fff;
-            padding: 10px;
-            border-radius: 25px;
-            text-align: center;
-            font-size: 14px;
-            font-weight: 500;
-            border: none;
-        }
-
+        .btn-outline-sm { border: 1px solid var(--primary-red-dark); color: #333; padding: 10px; border-radius: 25px; text-align: center; font-size: 14px; font-weight: 500; background: transparent; }
+        .btn-solid-sm { background-color: var(--primary-red-dark); color: #fff; padding: 10px; border-radius: 25px; text-align: center; font-size: 14px; font-weight: 500; border: none; }
         .checklist { list-style: none; }
-
-        .checklist li {
-            display: flex;
-            align-items: flex-start;
-            gap: 15px;
-            margin-bottom: 25px;
-            font-size: 14px;
-            font-weight: 400;
-            line-height: 1.5;
-            color: #333;
-        }
-
+        .checklist li { display: flex; align-items: flex-start; gap: 15px; margin-bottom: 25px; font-size: 14px; font-weight: 400; line-height: 1.5; color: #333; }
         .check-icon { width: 24px; height: 24px; flex-shrink: 0; }
 
-        /* =============================================
-           SECTION 3 — ПОЛИТИКА ТРЁХ БЕЗ (blog-3)
-        ============================================= */
+        /* SECTION 3 — ПОЛИТИКА */
         .section-policy { padding: 60px 0; }
-
         .benefits-row { display: flex; gap: 60px; margin-bottom: 80px; }
-
         .benefit-item { display: flex; align-items: flex-start; gap: 15px; flex: 1; }
-
         .benefit-icon { width: 28px; height: 28px; flex-shrink: 0; margin-top: 3px; }
-
         .benefit-text { font-size: 18px; line-height: 1.5; font-weight: 500; color: #3b3b3b; }
-
         .brush-underline { position: relative; display: inline-block; }
-
-        .brush-underline::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: -3px;
-            width: 100%;
-            height: 4px;
-            border-bottom: 2px solid var(--primary-red-dark);
-            border-radius: 50%;
-        }
-
-        .policy-title {
-            font-family: 'Mister Brush', cursive;
-            font-size: 58px;
-            color: #3b3b3b;
-            text-transform: uppercase;
-            margin-bottom: 50px;
-            letter-spacing: 1.5px;
-            font-weight: normal;
-        }
-
-        .brush-circle {
-            position: relative;
-            display: inline-block;
-            white-space: nowrap;
-        }
-
-        .brush-circle::after {
-            content: '';
-            position: absolute;
-            top: 50%; left: 50%;
-            width: 125%; height: 160%;
-            transform: translate(-50%, -50%);
-            background-image: url('images/red-circle.svg');
-            background-size: 100% 100%;
-            background-repeat: no-repeat;
-            background-position: center;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        .brush-circle span {
-            font-family: 'Mister Brush', cursive;
-            position: relative;
-            z-index: 1;
-        }
-
-        .policy-content {
-            display: grid;
-            grid-template-columns: 1.2fr 1fr 1fr;
-            gap: 40px;
-            align-items: end;
-        }
-
+        .brush-underline::after { content: ''; position: absolute; left: 0; bottom: -3px; width: 100%; height: 4px; border-bottom: 2px solid var(--primary-red-dark); border-radius: 50%; }
+        .policy-title { font-family: 'Mister Brush', cursive; font-size: 58px; color: #3b3b3b; text-transform: uppercase; margin-bottom: 50px; letter-spacing: 1.5px; font-weight: normal; }
+        .brush-circle { position: relative; display: inline-block; white-space: nowrap; }
+        .brush-circle::after { content: ''; position: absolute; top: 50%; left: 50%; width: 125%; height: 160%; transform: translate(-50%, -50%); background-image: url('images/red-circle.svg'); background-size: 100% 100%; background-repeat: no-repeat; background-position: center; z-index: 0; pointer-events: none; }
+        .brush-circle span { font-family: 'Mister Brush', cursive; position: relative; z-index: 1; }
+        .policy-content { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 40px; align-items: end; }
         .policy-image-wrapper { width: 100%; max-width: 400px; margin: 0 auto; }
         .policy-image-wrapper img { width: 100%; height: auto; display: block; }
-
         .policy-list { display: flex; flex-direction: column; gap: 30px; margin-bottom: 20px; }
-
-        .list-item {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            border-bottom: 1px solid var(--primary-red-dark);
-            padding-bottom: 10px;
-        }
-
-        .list-number {
-            font-family: 'Mister Brush', cursive;
-            font-size: 54px;
-            color: #333;
-            line-height: 0.8;
-            font-weight: normal;
-        }
-
+        .list-item { display: flex; align-items: center; gap: 20px; border-bottom: 1px solid var(--primary-red-dark); padding-bottom: 10px; }
+        .list-number { font-family: 'Mister Brush', cursive; font-size: 54px; color: #333; line-height: 0.8; font-weight: normal; }
         .list-text { font-size: 20px; font-weight: 500; color: #333; }
-
         .policy-quote { padding-bottom: 20px; }
-
         .quote-text { font-size: 16px; line-height: 1.5; color: #333; margin-bottom: 15px; }
-
-        .quote-bold {
-            font-weight: 700;
-            text-decoration: underline;
-            text-decoration-color: #333;
-            text-underline-offset: 3px;
-        }
-
+        .quote-bold { font-weight: 700; text-decoration: underline; text-decoration-color: #333; text-underline-offset: 3px; }
         .quote-author { font-size: 15px; font-style: italic; color: #777; text-align: right; }
 
-        /* =============================================
-           SECTION 4 — ВЫПУСКНИКИ (blog-4)
-        ============================================= */
+        /* SECTION 4 — ВЫПУСКНИКИ */
         .section-graduates { padding: 40px 0; }
-
-        .main-title-brush {
-            font-family: 'Mister Brush', cursive;
-            font-size: 48px;
-            color: #333;
-            text-transform: uppercase;
-            margin-bottom: 40px;
-            line-height: 1.2;
-        }
-
-        .circle-crisis {
-            position: relative;
-            display: inline-block;
-            white-space: nowrap;
-        }
-
-        .circle-crisis::after {
-            content: '';
-            position: absolute;
-            top: 50%; left: 50%;
-            width: 110%; height: 150%;
-            transform: translate(-50%, -50%);
-            background-image: url('images/circle.svg');
-            background-size: 100% 100%;
-            background-repeat: no-repeat;
-            z-index: 0;
-            pointer-events: none;
-        }
-
+        .main-title-brush { font-family: 'Mister Brush', cursive; font-size: 48px; color: #333; text-transform: uppercase; margin-bottom: 40px; line-height: 1.2; }
+        .circle-crisis { position: relative; display: inline-block; white-space: nowrap; }
+        .circle-crisis::after { content: ''; position: absolute; top: 50%; left: 50%; width: 110%; height: 150%; transform: translate(-50%, -50%); background-image: url('images/circle.svg'); background-size: 100% 100%; background-repeat: no-repeat; z-index: 0; pointer-events: none; }
         .circle-crisis span { position: relative; z-index: 1; }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            margin-bottom: 60px;
-        }
-
-        .stat-card {
-            background-color: var(--primary-red-dark);
-            color: #fff;
-            padding: 30px 20px;
-            border-radius: 15px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .stat-number {
-            font-family: 'Mister Brush', cursive;
-            font-size: 65px;
-            margin-bottom: 15px;
-            line-height: 0.9;
-        }
-
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 60px; }
+        .stat-card { background-color: var(--primary-red-dark); color: #fff; padding: 30px 20px; border-radius: 15px; display: flex; flex-direction: column; }
+        .stat-number { font-family: 'Mister Brush', cursive; font-size: 65px; margin-bottom: 15px; line-height: 0.9; }
         .stat-text { font-size: 16px; line-height: 1.4; }
-
         .content-panels { display: flex; flex-direction: column; gap: 40px; }
-
-        .panel {
-            border: 2px solid #eba59e;
-            padding: 40px;
-            border-radius: 20px;
-            position: relative;
-            min-height: 400px;
-        }
-
+        .panel { border: 2px solid #eba59e; padding: 40px; border-radius: 20px; position: relative; min-height: 400px; }
         .title-underline { position: relative; display: inline-block; }
-
-        .title-underline::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: -8px;
-            width: 100%;
-            height: 10px;
-            background-image: url('images/underline1.svg');
-            background-size: 100% 100%;
-            background-repeat: no-repeat;
-        }
-
-        .panel-title {
-            font-family: 'Mister Brush', cursive;
-            font-size: 42px;
-            color: #333;
-            margin-bottom: 40px;
-            text-transform: uppercase;
-        }
-
+        .title-underline::after { content: ''; position: absolute; left: 0; bottom: -8px; width: 100%; height: 10px; background-image: url('images/underline1.svg'); background-size: 100% 100%; background-repeat: no-repeat; }
+        .panel-title { font-family: 'Mister Brush', cursive; font-size: 42px; color: #333; margin-bottom: 40px; text-transform: uppercase; }
         .panel-title.right { text-align: right; }
-
-        .items-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin-top: 20px;
-            z-index: 2;
-            position: relative;
-        }
-
+        .items-container { display: flex; flex-wrap: wrap; gap: 20px; margin-top: 20px; z-index: 2; position: relative; }
         .panel:nth-child(1) .items-container { margin-top: 150px; }
         .panel:nth-child(2) .items-container { margin-top: 150px; justify-content: flex-end; }
-
-        .item-box {
-            background: #eba59e;
-            padding: 15px 25px;
-            border-radius: 12px;
-            display: inline-flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 40px;
-            font-weight: 600;
-            font-size: 18px;
-            color: #333;
-            min-width: 250px;
-        }
-
+        .item-box { background: #eba59e; padding: 15px 25px; border-radius: 12px; display: inline-flex; justify-content: space-between; align-items: center; gap: 40px; font-weight: 600; font-size: 18px; color: #333; min-width: 250px; }
         .arrow-icon { width: 24px; height: 24px; object-fit: contain; }
-
         .illustration { position: absolute; z-index: 0; max-width: 400px; }
         .illus-1 { top: 20px; right: 15%; }
         .illus-2 { top: 20px; left: 5%; }
 
-        /* =============================================
-           SECTION 5 — ДЛЯ КОГО + ПАРТНЁРЫ (blog-5)
-        ============================================= */
+        /* SECTION 5 — ДЛЯ КОГО */
         .section-for-whom { padding: 60px 0; }
-
-        .section-title-large {
-            font-family: 'Mister Brush', cursive;
-            font-size: 52px;
-            color: #333;
-            text-transform: uppercase;
-            margin-bottom: 40px;
-            letter-spacing: 1px;
-        }
-
-        .brush-circle-sm {
-            position: relative;
-            display: inline-block;
-            white-space: nowrap;
-        }
-
-        .brush-circle-sm::after {
-            content: '';
-            position: absolute;
-            top: 50%; left: 50%;
-            width: 110%; height: 140%;
-            transform: translate(-50%, -50%);
-            background-image: url('images/circle.svg');
-            background-size: 100% 100%;
-            background-repeat: no-repeat;
-            background-position: center;
-            z-index: 0;
-            pointer-events: none;
-        }
-
+        .section-title-large { font-family: 'Mister Brush', cursive; font-size: 52px; color: #333; text-transform: uppercase; margin-bottom: 40px; letter-spacing: 1px; }
+        .brush-circle-sm { position: relative; display: inline-block; white-space: nowrap; }
+        .brush-circle-sm::after { content: ''; position: absolute; top: 50%; left: 50%; width: 110%; height: 140%; transform: translate(-50%, -50%); background-image: url('images/circle.svg'); background-size: 100% 100%; background-repeat: no-repeat; background-position: center; z-index: 0; pointer-events: none; }
         .brush-circle-sm span { position: relative; z-index: 1; }
-
-        .for-whom-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            margin-bottom: 80px;
-        }
-
-        .card-fw {
-            border: 1px solid #eba59e;
-            border-radius: 15px;
-            padding: 25px;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            min-height: 160px;
-        }
-
-        .card-fw-text {
-            font-size: 16px;
-            font-weight: 500;
-            line-height: 1.4;
-            max-width: 70%;
-            z-index: 2;
-        }
-
-        .card-fw-icon {
-            position: absolute;
-            bottom: 20px; right: 20px;
-            width: 80px;
-            height: auto;
-            z-index: 1;
-        }
-
+        .for-whom-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 80px; }
+        .card-fw { border: 1px solid #eba59e; border-radius: 15px; padding: 25px; position: relative; display: flex; flex-direction: column; justify-content: space-between; min-height: 160px; }
+        .card-fw-text { font-size: 16px; font-weight: 500; line-height: 1.4; max-width: 70%; z-index: 2; }
+        .card-fw-icon { position: absolute; bottom: 20px; right: 20px; width: 80px; height: auto; z-index: 1; }
         .card-image-box { border-radius: 15px; overflow: hidden; display: flex; }
         .card-image-box img { width: 100%; height: 100%; object-fit: cover; }
-
-        .card-button {
-            background-color: var(--primary-red-dark);
-            color: #fff;
-            text-align: center;
-            padding: 15px;
-            border-radius: 25px;
-            font-weight: 600;
-            font-size: 15px;
-            margin-top: 30px;
-            display: block;
-            border: none;
-            cursor: pointer;
-            width: 100%;
-        }
-
+        .card-button { background-color: var(--primary-red-dark); color: #fff; text-align: center; padding: 15px; border-radius: 25px; font-weight: 600; font-size: 15px; margin-top: 30px; display: block; border: none; cursor: pointer; width: 100%; }
         .card-fw-1 { grid-column: 1; grid-row: 1; }
         .card-fw-2 { grid-column: 2; grid-row: 1; }
         .card-fw-3 { grid-column: 3; grid-row: 1; }
         .card-fw-img { grid-column: 1 / 3; grid-row: 2; min-height: 250px; }
         .card-fw-4 { grid-column: 3; grid-row: 2; justify-content: flex-start; }
-
-        .card-fw-4 .card-fw-icon {
-            position: relative;
-            bottom: auto; right: auto;
-            margin: 20px auto 0;
-            display: block;
-            width: 120px;
-        }
-
-        .partners-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 40px;
-        }
-
-        .btn-outline-lg {
-            border: 1px solid var(--primary-red-dark);
-            color: #333;
-            padding: 12px 30px;
-            border-radius: 30px;
-            font-weight: 500;
-            font-size: 15px;
-            background: transparent;
-            text-decoration: none;
-        }
-
-        .partners-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-        }
-
-        .partner-card {
-            border: 1px solid #eba59e;
-            border-radius: 15px;
-            padding: 30px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 120px;
-        }
-
+        .card-fw-4 .card-fw-icon { position: relative; bottom: auto; right: auto; margin: 20px auto 0; display: block; width: 120px; }
+        .partners-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+        .btn-outline-lg { border: 1px solid var(--primary-red-dark); color: #333; padding: 12px 30px; border-radius: 30px; font-weight: 500; font-size: 15px; background: transparent; text-decoration: none; cursor: pointer; }
+        .partners-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .partner-card { border: 1px solid #eba59e; border-radius: 15px; padding: 30px 20px; display: flex; align-items: center; justify-content: center; height: 120px; transition: background 0.2s; }
+        .partner-card:hover { background: rgba(235,165,158,0.15); }
         .partner-card img { max-width: 100%; max-height: 100%; object-fit: contain; }
-
         .mobile-arrows-fw, .mobile-btn-fw { display: none; }
         .desktop-btn-fw { display: inline-block; }
 
-        /* =============================================
-           SECTION 6 — ЧТО ВЫ ПОЛУЧАЕТЕ (blog-6)
-        ============================================= */
+        /* SECTION 6 — ЧТО ВЫ ПОЛУЧАЕТЕ */
         .section-get { padding: 60px 0; }
-
         .section-get .header-get { margin-bottom: 40px; }
-
-        .main-title-get {
-            font-family: 'Mister Brush', cursive;
-            font-size: 46px;
-            text-transform: uppercase;
-            font-weight: normal;
-            margin-bottom: 15px;
-            line-height: 1.1;
-            color: #2b2b2b;
-        }
-
-        .highlight-wrapper-get {
-            position: relative;
-            display: inline-block;
-        }
-
-        .title-circle-get {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 110%; height: auto;
-            z-index: -1;
-        }
-
+        .main-title-get { font-family: 'Mister Brush', cursive; font-size: 46px; text-transform: uppercase; font-weight: normal; margin-bottom: 15px; line-height: 1.1; color: #2b2b2b; }
+        .highlight-wrapper-get { position: relative; display: inline-block; }
+        .title-circle-get { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 110%; height: auto; z-index: -1; }
         .subtitle-get { font-size: 16px; color: #555; font-weight: 500; }
-
-        .card-get {
-            border: 1px solid #eacab9;
-            border-radius: 12px;
-            padding: 30px;
-            margin-bottom: 25px;
-            display: grid;
-            grid-template-columns: 220px 1fr 320px;
-            grid-template-rows: auto 1fr;
-            gap: 10px 40px;
-            grid-template-areas:
-                "img title tag"
-                "img desc list";
-            align-items: start;
-        }
-
+        .card-get { border: 1px solid #eacab9; border-radius: 12px; padding: 30px; margin-bottom: 25px; display: grid; grid-template-columns: 220px 1fr 320px; grid-template-rows: auto 1fr; gap: 10px 40px; grid-template-areas: "img title tag" "img desc list"; align-items: start; }
         .card-get-img { grid-area: img; text-align: center; }
         .card-get-img img { max-width: 100%; height: auto; }
-
         .card-get-title { grid-area: title; padding-top: 10px; }
         .card-get-title h2 { font-size: 28px; font-weight: 600; line-height: 1.2; color: #2b2b2b; }
-
-        .card-get-tag { grid-area: tag; text-align: right; font-weight: 700; font-size: 14px; padding-top: 10px; }
-
-        .red-dot {
-            display: inline-block;
-            width: 6px; height: 6px;
-            background-color: var(--primary-red-dark);
-            border-radius: 50%;
-            margin-right: 6px;
-            transform: translateY(-2px);
-        }
-
+        .card-get-tag { grid-area: tag; text-align: right; font-weight: 700; font-size: 14px; padding-top: 10px; cursor: pointer; }
+        .card-get-tag a { color: inherit; transition: opacity 0.2s; }
+        .card-get-tag a:hover { opacity: 0.7; }
+        .red-dot { display: inline-block; width: 6px; height: 6px; background-color: var(--primary-red-dark); border-radius: 50%; margin-right: 6px; transform: translateY(-2px); }
         .card-get-desc { grid-area: desc; align-self: end; font-size: 13px; color: #5a5a5a; font-weight: 500; }
-
         .card-get-list { grid-area: list; font-size: 14px; color: #4a4a4a; font-weight: 400; line-height: 1.5; }
-
         .card-get-list strong { font-weight: 600; color: #2b2b2b; display: block; margin-bottom: 5px; }
-
         .underline-wrapper { position: relative; display: inline-block; }
-
         .squiggly-line { position: absolute; bottom: -4px; left: 0; width: 100%; height: auto; }
+        a.cert-link { color: inherit; border-bottom: 1px dashed currentColor; transition: opacity 0.2s; }
+        a.cert-link:hover { opacity: 0.7; }
 
-        /* =============================================
-           SECTION 7 — СПРАВКА ДЛЯ РУКОВОДИТЕЛЯ (blog-7)
-        ============================================= */
+        /* SECTION 7 — СПРАВКА */
         .section-spravka { padding: 50px 0; }
-
-        .spravka-title {
-            font-family: 'Mister Brush', cursive;
-            font-size: 42px;
-            text-transform: uppercase;
-            font-weight: normal;
-            color: #333;
-            margin-bottom: 50px;
-            line-height: 1.1;
-        }
-
-        .info-grid {
-            margin-left: 35%;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px 50px;
-            margin-bottom: 80px;
-        }
-
+        .spravka-title { font-family: 'Mister Brush', cursive; font-size: 42px; text-transform: uppercase; font-weight: normal; color: #333; margin-bottom: 50px; line-height: 1.1; }
+        .info-grid { margin-left: 35%; display: grid; grid-template-columns: 1fr 1fr; gap: 40px 50px; margin-bottom: 80px; }
         .info-item { display: flex; flex-direction: column; gap: 15px; }
-
         .icon-red-star { width: 25px; height: auto; }
-
         .info-item p { font-size: 14px; font-weight: 500; color: #4a4a4a; line-height: 1.5; }
         .info-item strong { font-weight: 700; color: #2b2b2b; }
-
-        .quote-section {
-            position: relative;
-            padding: 0 80px;
-            margin-top: 40px;
-        }
-
+        .quote-section { position: relative; padding: 0 80px; margin-top: 40px; }
         .quote-icon-big { position: absolute; width: 50px; height: auto; }
         .quote-icon-big.left { top: -10px; left: 10px; }
         .quote-icon-big.right { bottom: 40px; right: 10px; }
-
         .quote-content { font-size: 26px; font-weight: 500; color: #333; line-height: 1.4; }
         .quote-title { margin-bottom: 5px; }
-
         .quote-underline { position: absolute; bottom: -5px; left: 0; width: 100%; height: auto; }
+        .quote-author-big { text-align: right; font-style: italic; font-weight: 400; color: #666; margin-top: 20px; font-size: 16px; padding-right: 20px; }
 
-        .quote-author-big {
-            text-align: right;
-            font-style: italic;
-            font-weight: 400;
-            color: #666;
-            margin-top: 20px;
-            font-size: 16px;
-            padding-right: 20px;
-        }
-
-        /* =============================================
-           SECTION 8 — КАК ПОЛУЧИТЬ ДОСТУП (blog-8)
-        ============================================= */
+        /* SECTION 8 — КАК ПОЛУЧИТЬ */
         .section-access { padding: 40px 0; }
-
-        .access-grid {
-            max-width: 1000px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 380px;
-            grid-template-rows: auto auto;
-            gap: 20px 40px;
-            position: relative;
-        }
-
+        .access-grid { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1fr 380px; grid-template-rows: auto auto; gap: 20px 40px; position: relative; }
         .text-header-access { grid-column: 1 / 2; grid-row: 1 / 2; }
-
-        h1.access-title {
-            font-family: 'Mister Brush', cursive;
-            font-size: 42px;
-            text-transform: uppercase;
-            font-weight: normal;
-            line-height: 1.2;
-            margin-bottom: 20px;
-            letter-spacing: 1px;
-            color: var(--text-dark);
-        }
-
+        h1.access-title { font-family: 'Mister Brush', cursive; font-size: 42px; text-transform: uppercase; font-weight: normal; line-height: 1.2; margin-bottom: 20px; letter-spacing: 1px; color: var(--text-dark); }
         .decor-text { position: relative; display: inline-block; white-space: nowrap; }
-
-        .decor-circle {
-            position: absolute;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            width: 110%; height: auto;
-            z-index: -1;
-        }
-
+        .decor-circle { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 110%; height: auto; z-index: -1; }
         .decor-line { position: absolute; bottom: -3px; left: 0; width: 100%; height: auto; z-index: -1; }
-
         .description-access { font-size: 16px; margin-bottom: 30px; color: #555; }
         .description-access p { margin-bottom: 5px; }
-
         .steps-box-access { grid-column: 1 / 2; grid-row: 2 / 3; }
-
-        .step {
-            border: 1px solid rgba(204, 90, 85, 0.2);
-            border-radius: 12px;
-            padding: 15px 25px;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .step-num {
-            font-family: 'Mister Brush', cursive;
-            font-size: 56px;
-            color: var(--primary-red);
-            line-height: 1;
-            min-width: 60px;
-        }
-
+        .step { border: 1px solid rgba(204, 90, 85, 0.2); border-radius: 12px; padding: 15px 25px; margin-bottom: 15px; display: flex; align-items: center; gap: 20px; }
+        .step-num { font-family: 'Mister Brush', cursive; font-size: 56px; color: var(--primary-red); line-height: 1; min-width: 60px; }
         .step-text { font-size: 15px; }
         .step-text b { font-weight: 600; }
-
-        .illustration-box-access {
-            grid-column: 2 / 3;
-            grid-row: 1 / 2;
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-            padding-bottom: 20px;
-        }
-
+        .illustration-box-access { grid-column: 2 / 3; grid-row: 1 / 2; display: flex; justify-content: center; align-items: flex-end; padding-bottom: 20px; }
         .illustration-access { max-width: 100%; height: auto; }
-
-        .button-box-access {
-            grid-column: 2 / 3;
-            grid-row: 2 / 3;
-            display: flex;
-            align-items: flex-start;
-        }
-
-        .btn-access {
-            background-color: var(--primary-red);
-            color: #fff;
-            border: none;
-            border-radius: 30px;
-            padding: 18px 30px;
-            font-size: 18px;
-            font-weight: 500;
-            cursor: pointer;
-            width: 100%;
-            transition: opacity 0.3s;
-        }
-
+        .button-box-access { grid-column: 2 / 3; grid-row: 2 / 3; display: flex; align-items: flex-start; }
+        .btn-access { background-color: var(--primary-red); color: #fff; border: none; border-radius: 30px; padding: 18px 30px; font-size: 18px; font-weight: 500; cursor: pointer; width: 100%; transition: opacity 0.3s; }
         .btn-access:hover { opacity: 0.9; }
 
-        /* =============================================
-           SECTION 9 — FOOTER / КОНТАКТЫ (footer)
-        ============================================= */
+        /* SECTION 9 — КОНТАКТЫ */
         .section-contacts { padding: 40px 0; }
-
-        .contacts-section-title {
-            font-family: 'Mister Brush', cursive;
-            font-size: 48px;
-            text-transform: uppercase;
-            font-weight: normal;
-            margin-bottom: 30px;
-            letter-spacing: 1px;
-        }
-
-        .contacts-grid {
-            display: grid;
-            grid-template-columns: 1fr 1.5fr 1.2fr;
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-
-        .card-contact {
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 25px;
-        }
-
+        .contacts-section-title { font-family: 'Mister Brush', cursive; font-size: 48px; text-transform: uppercase; font-weight: normal; margin-bottom: 30px; letter-spacing: 1px; }
+        .contacts-grid { display: grid; grid-template-columns: 1fr 1.5fr 1.2fr; gap: 20px; margin-bottom: 40px; }
+        .card-contact { border: 1px solid var(--border-color); border-radius: 12px; padding: 25px; }
         .info-block { margin-bottom: 25px; }
         .info-block:last-child { margin-bottom: 0; }
         .info-label { font-size: 14px; color: var(--text-gray); margin-bottom: 5px; display: block; }
         .info-value { font-size: 18px; font-weight: 500; }
-
-        .social-card {
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 15px 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
+        .social-card { border: 1px solid var(--border-color); border-radius: 12px; padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
         .social-icons { display: flex; gap: 15px; }
         .icon-img { width: 32px; height: 32px; object-fit: contain; }
-
-        .decor-text-contact {
-            position: relative;
-            display: inline-block;
-            font-weight: 500;
-            margin-right: 5px;
-            margin-bottom: 15px;
-            font-size: 17px;
-        }
-
-        .decor-line-contact {
-            position: absolute;
-            bottom: -3px; left: 0;
-            width: 100%; height: auto;
-            z-index: -1;
-        }
-
+        .decor-text-contact { position: relative; display: inline-block; font-weight: 500; margin-right: 5px; margin-bottom: 15px; font-size: 17px; }
+        .decor-line-contact { position: absolute; bottom: -3px; left: 0; width: 100%; height: auto; z-index: -1; }
         .desc-text { font-size: 14px; color: var(--text-gray); }
-
-        .action-card {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-
+        .action-card { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
         .action-text { font-size: 18px; font-weight: 500; margin-bottom: 20px; line-height: 1.4; }
-
-        .btn-contact {
-            background-color: var(--primary-red);
-            color: #fff;
-            border: none;
-            border-radius: 30px;
-            padding: 18px 30px;
-            font-size: 16px;
-            font-weight: 500;
-            cursor: pointer;
-            width: 100%;
-            transition: opacity 0.3s;
-        }
-
+        .btn-contact { background-color: var(--primary-red); color: #fff; border: none; border-radius: 30px; padding: 18px 30px; font-size: 16px; font-weight: 500; cursor: pointer; width: 100%; transition: opacity 0.3s; }
         .btn-contact:hover { opacity: 0.9; }
-
-        .footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            padding-top: 20px;
-            font-size: 13px;
-            color: var(--text-gray);
-        }
-
+        .footer { display: flex; justify-content: space-between; align-items: flex-end; padding-top: 20px; font-size: 13px; color: var(--text-gray); }
         .footer-logo img { max-width: 120px; height: auto; }
-
         .footer-links { display: flex; flex-direction: column; gap: 10px; text-align: left; }
         .footer-links a { color: var(--text-gray); text-decoration: underline; }
         .footer-links a:hover { color: var(--text-dark); }
-
         .footer-copy { text-align: right; }
 
         /* =============================================
-           RESPONSIVE / MOBILE
+           MODALS
+        ============================================= */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(58, 56, 57, 0.75);
+            display: flex; justify-content: center; align-items: center;
+            padding: 16px; z-index: 2000;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.3s ease;
+            overflow-y: auto;
+        }
+        .modal-overlay.active { opacity: 1; pointer-events: all; }
+
+        .modal-content {
+            background-color: var(--bg-color);
+            border-radius: 16px;
+            padding: 50px 60px;
+            max-width: 620px;
+            width: 100%;
+            position: relative;
+            text-align: center;
+            transform: translateY(20px) scale(0.97);
+            transition: transform 0.3s ease;
+            margin: auto;
+        }
+        .modal-overlay.active .modal-content { transform: translateY(0) scale(1); }
+
+        .form-success {
+            display: none;
+            padding: 20px;
+            background: rgba(208,92,85,0.1);
+            border: 1px solid var(--primary-red);
+            border-radius: 12px;
+            color: var(--primary-red);
+            font-weight: 500;
+            font-size: 15px;
+            margin-bottom: 15px;
+        }
+        .form-error {
+            display: none;
+            padding: 15px;
+            background: rgba(200,50,50,0.1);
+            border: 1px solid #c83232;
+            border-radius: 12px;
+            color: #c83232;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .modal-close-btn {
+            position: absolute; top: 20px; right: 20px;
+            background: none; border: none; cursor: pointer;
+            transition: transform 0.2s ease; z-index: 1;
+        }
+        .modal-close-btn:hover { transform: scale(1.15) rotate(5deg); }
+
+        .modal-title {
+            font-family: 'Mister Brush', cursive;
+            font-size: 38px;
+            text-transform: uppercase;
+            font-weight: normal;
+            line-height: 1.2;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+        }
+        .modal-title * { font-family: 'Mister Brush', cursive; }
+        .modal-subtitle {
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 1.4;
+            margin-bottom: 30px;
+            color: var(--text-dark);
+        }
+
+        .modal-decor-circle {
+            position: relative; display: inline-block; white-space: nowrap;
+        }
+        .modal-decor-circle::after {
+            content: ''; position: absolute; top: 50%; left: 50%;
+            width: 115%; height: 160%;
+            transform: translate(-50%, -50%);
+            background-image: url('images/red-circle.svg');
+            background-size: 100% 100%; background-repeat: no-repeat;
+            z-index: 0; pointer-events: none;
+        }
+        .modal-decor-circle span { position: relative; z-index: 1; font-family: 'Mister Brush', cursive; }
+
+        .request-form { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+
+        .form-input {
+            width: 100%; padding: 15px 22px;
+            border: 1px solid rgba(204, 90, 85, 0.3);
+            border-radius: 30px; background-color: transparent;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 15px; color: var(--text-dark);
+            outline: none; transition: border-color 0.3s ease;
+        }
+        .form-input:focus { border-color: var(--primary-red); }
+        .form-input::placeholder { color: rgba(204, 90, 85, 0.55); font-weight: 400; }
+
+        .submit-btn {
+            background-color: var(--primary-red); color: #fff;
+            border: none; border-radius: 30px; padding: 17px 30px;
+            font-size: 16px; font-family: 'Montserrat', sans-serif;
+            font-weight: 500; cursor: pointer; width: 100%;
+            transition: opacity 0.3s ease; margin-top: 3px;
+        }
+        .submit-btn:hover { opacity: 0.9; }
+
+        .disclaimer-text {
+            font-size: 13px; color: var(--primary-red);
+            line-height: 1.4; text-align: left; margin-top: 20px;
+        }
+
+        /* =============================================
+           RESPONSIVE
         ============================================= */
         @media (max-width: 900px) {
-            /* Header */
+            body { padding-top: 80px; }
             .desktop-nav, .desktop-only { display: none; }
             .hamburger-btn { display: flex; }
 
-            /* Hero */
             .hero { flex-direction: column; text-align: left; padding: 30px 20px; }
-            .hero-title { font-size: 55px; }
+            .hero-title { font-size: 48px; }
             .highlight::after { height: 20px; bottom: -15px; }
-            .hero-subtitle { font-size: 18px; margin-bottom: 30px; }
+            .hero-subtitle { font-size: 17px; margin-bottom: 25px; }
             .hero-content .outline-btn { display: none; }
             .mobile-hero-btn { display: block; }
             .hero-image { max-width: 100%; margin-top: 20px; }
 
-            /* Author */
-            .section-title-brush { font-size: 48px; }
+            .section-title-brush { font-size: 40px; }
             .author-top { flex-direction: column; gap: 30px; }
             .author-image-wrapper { width: 100%; max-width: 100%; }
-            .badge-red { right: 10px; bottom: 40px; font-size: 14px; padding: 8px 15px; }
-            .badge-light { right: 20px; bottom: 5px; font-size: 12px; padding: 8px 15px; text-align: center; line-height: 1.2; }
-            .author-name { font-size: 26px; }
-            .stats-list li { font-size: 16px; }
+            .badge-red { right: 10px; bottom: 40px; font-size: 13px; padding: 8px 15px; }
+            .badge-light { right: 20px; bottom: 5px; font-size: 11px; padding: 8px 15px; text-align: center; line-height: 1.2; }
+            .author-name { font-size: 24px; }
+            .stats-list li { font-size: 15px; }
             .cards-grid-author { grid-template-columns: 1fr 1fr; }
             .cards-grid-author .card-author:last-child { grid-column: 1 / -1; }
-            .author-bottom { grid-template-columns: 1fr; gap: 40px; }
-            .btn-grid { max-width: 400px; }
+            .author-bottom { grid-template-columns: 1fr; gap: 30px; }
+            .btn-grid { max-width: 100%; }
 
-            /* Policy */
-            .benefits-row { flex-direction: column; gap: 30px; margin-bottom: 50px; }
-            .benefit-text { font-size: 16px; }
-            .policy-title { font-size: 42px; line-height: 1.2; margin-bottom: 40px; }
-            .policy-content { display: flex; flex-direction: column; gap: 40px; }
-            .policy-list { order: 1; gap: 20px; margin-bottom: 0; }
-            .list-item { justify-content: space-between; padding-bottom: 15px; }
-            .list-text { text-align: right; font-size: 18px; }
-            .policy-image-wrapper { order: 2; max-width: 320px; }
+            .benefits-row { flex-direction: column; gap: 25px; margin-bottom: 40px; }
+            .benefit-text { font-size: 15px; }
+            .policy-title { font-size: 36px; line-height: 1.2; margin-bottom: 30px; }
+            .policy-content { display: flex; flex-direction: column; gap: 30px; }
+            .policy-list { order: 1; gap: 15px; margin-bottom: 0; }
+            .list-item { padding-bottom: 12px; }
+            .list-text { font-size: 17px; }
+            .policy-image-wrapper { order: 2; max-width: 280px; }
             .policy-quote { order: 3; padding-bottom: 0; }
             .quote-text { font-size: 15px; }
 
-            /* Graduates */
-            .main-title-brush { font-size: 36px; }
+            .main-title-brush { font-size: 30px; }
             .stats-grid {
-                display: flex;
-                overflow-x: auto;
+                display: flex; overflow-x: auto;
                 scroll-snap-type: x mandatory;
                 -webkit-overflow-scrolling: touch;
-                gap: 15px;
-                padding-bottom: 20px;
-                scrollbar-width: none;
+                gap: 15px; padding-bottom: 15px; scrollbar-width: none;
             }
             .stats-grid::-webkit-scrollbar { display: none; }
-            .stat-card { min-width: 260px; flex: 0 0 auto; scroll-snap-align: start; }
-            .panel { padding: 25px 15px; }
-            .panel-title { font-size: 32px; text-align: center; }
+            .stat-card { min-width: 220px; flex: 0 0 auto; scroll-snap-align: start; }
+            .stat-number { font-size: 52px; }
+            .panel { padding: 20px 15px; min-height: auto; }
+            .panel-title { font-size: 28px; text-align: center; }
             .panel-title.right { text-align: center; }
-            .items-container { flex-direction: column; margin-top: 200px !important; }
-            .item-box { min-width: 100%; }
-            .illustration { max-width: 280px; left: 50%; transform: translateX(-50%); }
-            .illus-1 { top: 80px; }
-            .illus-2 { top: 120px; }
+            .items-container { flex-direction: column; margin-top: 180px !important; }
+            .item-box { min-width: 100%; font-size: 16px; padding: 12px 18px; }
+            .illustration { max-width: 240px; left: 50%; transform: translateX(-50%); }
+            .illus-1 { top: 60px; right: auto; }
+            .illus-2 { top: 60px; }
 
-            /* For Whom */
-            .section-title-large { font-size: 40px; }
-            .for-whom-grid { display: flex; flex-direction: column; }
-            .card-fw-1 { order: 1; } .card-fw-2 { order: 2; }
-            .card-fw-img { order: 3; height: 200px; }
-            .card-fw-3 { order: 4; } .card-fw-4 { order: 5; }
-            .card-fw-text { max-width: 60%; }
-            .partners-header { flex-direction: column; align-items: flex-start; }
+            .section-title-large { font-size: 34px; }
+            .for-whom-grid { display: flex; flex-direction: column; gap: 15px; }
+            .card-fw-1, .card-fw-2, .card-fw-3, .card-fw-4 { grid-column: auto; grid-row: auto; }
+            .card-fw-img { min-height: 180px; height: 200px; }
+            .card-fw-text { max-width: 65%; }
+            .partners-header { flex-direction: column; align-items: flex-start; gap: 15px; }
             .partners-grid {
-                display: flex;
-                overflow-x: auto;
+                display: flex; overflow-x: auto;
                 scroll-snap-type: x mandatory;
                 -webkit-overflow-scrolling: touch;
-                scrollbar-width: none;
-                padding-bottom: 10px;
-                scroll-behavior: smooth;
+                scrollbar-width: none; padding-bottom: 10px;
+                scroll-behavior: smooth; gap: 15px;
             }
             .partners-grid::-webkit-scrollbar { display: none; }
-            .partner-card { min-width: 250px; flex: 0 0 auto; scroll-snap-align: start; }
+            .partner-card { min-width: 220px; flex: 0 0 auto; scroll-snap-align: start; }
             .desktop-btn-fw { display: none; }
-            .mobile-btn-fw { display: block; width: 100%; text-align: center; margin-top: 30px; }
-            .mobile-arrows-fw {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-top: 20px;
-                padding: 0 20px;
-            }
-            .mobile-arrow-img { width: 60px; height: auto; cursor: pointer; transition: opacity 0.2s; }
+            .mobile-btn-fw { display: block; width: 100%; text-align: center; margin-top: 20px; }
+            .mobile-arrows-fw { display: flex; justify-content: space-between; align-items: center; margin-top: 15px; padding: 0 10px; }
+            .mobile-arrow-img { width: 50px; height: auto; cursor: pointer; transition: opacity 0.2s; }
             .mobile-arrow-img:active { opacity: 0.5; }
 
-            /* Get */
-            .main-title-get { font-size: 32px; }
-            .subtitle-get { font-size: 14px; }
+            .main-title-get { font-size: 28px; }
+            .subtitle-get { font-size: 13px; }
             .card-get {
-                grid-template-columns: 130px 1fr;
+                grid-template-columns: 110px 1fr;
                 grid-template-areas:
                     "tag tag"
                     "img title"
                     "desc desc"
                     "list list";
-                gap: 15px 20px;
-                padding: 20px;
+                gap: 12px 15px; padding: 18px;
             }
-            .card-get-tag { text-align: left; padding-top: 0; }
+            .card-get-tag { text-align: left; padding-top: 0; font-size: 13px; }
             .card-get-title { padding-top: 0; align-self: center; }
-            .card-get-title h2 { font-size: 20px; }
-            .card-get-desc { font-size: 13px; margin-top: 5px; }
-            .card-get-list { font-size: 13px; margin-top: 5px; }
-            .card-get-img img { max-width: 120px; }
+            .card-get-title h2 { font-size: 18px; }
+            .card-get-img img { max-width: 100px; }
 
-            /* Spravka */
-            .spravka-title { font-size: 36px; max-width: 200px; margin-bottom: 30px; }
-            .info-grid { margin-left: 0; grid-template-columns: 1fr; gap: 25px; margin-bottom: 50px; }
-            .info-item { flex-direction: row; gap: 15px; }
-            .icon-red-star { width: 20px; margin-top: 2px; flex-shrink: 0; }
-            .info-item p { font-size: 15px; }
+            .spravka-title { font-size: 30px; margin-bottom: 25px; }
+            .info-grid { margin-left: 0; grid-template-columns: 1fr; gap: 20px; margin-bottom: 40px; }
+            .info-item { flex-direction: row; gap: 12px; }
+            .icon-red-star { width: 18px; margin-top: 2px; flex-shrink: 0; }
+            .info-item p { font-size: 14px; }
             .quote-section { padding: 0; display: flex; flex-direction: column; }
-            .quote-icon-big { position: static; width: 40px; }
-            .quote-icon-big.left { margin-bottom: 15px; align-self: flex-start; }
-            .quote-icon-big.right { margin-top: 15px; align-self: flex-end; margin-bottom: 10px; }
-            .quote-content { font-size: 20px; }
-            .quote-author-big { text-align: right; padding-right: 0; margin-top: 10px; font-size: 14px; }
+            .quote-icon-big { position: static; width: 35px; }
+            .quote-icon-big.left { margin-bottom: 12px; align-self: flex-start; }
+            .quote-icon-big.right { margin-top: 12px; align-self: flex-end; margin-bottom: 8px; }
+            .quote-content { font-size: 18px; }
+            .quote-author-big { text-align: right; padding-right: 0; margin-top: 8px; font-size: 13px; }
 
-            /* Access */
-            .access-grid { display: flex; flex-direction: column; gap: 20px; }
-            h1.access-title { font-size: 32px; max-width: 65%; }
-            .description-access { font-size: 14px; position: relative; z-index: 2; }
-            .illustration-box-access {
-                position: absolute;
-                top: 0; right: -10px;
-                width: 140px;
-                padding: 0;
-                z-index: 1;
-            }
-            .step { padding: 15px; gap: 15px; }
-            .step-num { font-size: 48px; min-width: 50px; }
-            .step-text { font-size: 14px; }
-            .button-box-access { width: 100%; margin-top: 10px; }
+            .access-grid { display: flex; flex-direction: column; gap: 15px; }
+            h1.access-title { font-size: 28px; }
+            .description-access { font-size: 14px; }
+            .illustration-box-access { display: none; }
+            .step { padding: 12px 15px; gap: 12px; }
+            .step-num { font-size: 44px; min-width: 45px; }
+            .step-text { font-size: 13px; }
+            .button-box-access { width: 100%; }
+            .btn-access { font-size: 16px; padding: 16px; }
 
-            /* Contacts Footer */
-            .contacts-section-title { font-size: 40px; text-align: left; }
-            .contacts-grid { grid-template-columns: 1fr; }
-            .card-contact { padding: 20px; }
-            .action-text { font-size: 18px; }
+            .contacts-section-title { font-size: 34px; }
+            .contacts-grid { grid-template-columns: 1fr; gap: 15px; }
+            .card-contact { padding: 18px; }
+            .action-text { font-size: 16px; }
             .footer {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
-                grid-template-areas:
-                    "logo links"
-                    "copy links";
-                gap: 15px;
-                align-items: start;
+                grid-template-areas: "logo links" "copy links";
+                gap: 12px; align-items: start;
             }
             .footer-logo { grid-area: logo; }
             .footer-links { grid-area: links; text-align: left; }
-            .footer-copy { grid-area: copy; align-self: end; text-align: left; font-size: 12px; }
+            .footer-copy { grid-area: copy; align-self: end; text-align: left; font-size: 11px; }
+
+            .modal-overlay { padding: 10px; align-items: flex-start; }
+            .modal-content {
+                padding: 45px 18px 30px;
+                border-radius: 14px;
+                margin: 10px auto;
+            }
+            .modal-title { font-size: 24px; margin-bottom: 18px; letter-spacing: 0; }
+            .modal-subtitle { font-size: 15px; margin-bottom: 16px; }
+            .modal-close-btn { top: 12px; right: 12px; }
+            .modal-close-btn svg { width: 26px; height: 26px; }
+            .form-input { padding: 13px 16px; font-size: 14px; border-radius: 25px; }
+            .request-form { gap: 10px; margin-bottom: 14px; }
+            .submit-btn { padding: 14px; font-size: 15px; }
+            .disclaimer-text { font-size: 11px; text-align: center; margin-top: 12px; }
+            .modal-decor-circle::after { display: none; }
+        }
+
+        @media (max-width: 400px) {
+            .modal-content { padding: 38px 13px 22px; }
+            .modal-title { font-size: 20px; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title { font-size: 38px; }
+            .section-title-brush { font-size: 34px; }
+            .main-title-brush { font-size: 26px; }
+            .policy-title { font-size: 30px; }
+            .stat-card { min-width: 190px; }
+            .panel-title { font-size: 24px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- =============================================
-         SECTION 1 — HEADER + HERO
-    ============================================= -->
+    <!-- HEADER -->
+    <div class="header-wrapper">
     <header class="header container">
         <a href="#" class="logo">
             <img src="images/detyam-head-logo.svg" alt="Anton Detyam Logo">
         </a>
-
         <nav class="desktop-nav">
             <a href="#author">Автор проекта</a>
             <a href="#for-whom">Для кого</a>
             <a href="#get">Что вы получаете</a>
         </nav>
-
         <div class="header-right">
-            <a href="tel:+79999999999" class="social-icon">
+            <a href="https://vk.com/balanov_anton" target="_blank" rel="noopener" class="social-icon">
                 <img src="images/whatsap.svg" alt="Whatsapp">
             </a>
-            <a href="#" class="social-icon desktop-only">
+            <a href="https://vk.com/balanov_anton" target="_blank" rel="noopener" class="social-icon desktop-only">
                 <img src="images/wk.svg" alt="VK">
             </a>
-            <button class="primary-btn desktop-only">Заказать звонок</button>
+            <button class="primary-btn desktop-only" data-modal="modal-call">Заказать звонок</button>
             <button class="hamburger-btn" id="openMenuBtn">
                 <span></span><span></span><span></span>
             </button>
         </div>
     </header>
+    </div>
 
     <!-- Mobile Menu -->
     <div class="mobile-menu-overlay" id="mobileMenu">
@@ -1347,7 +615,7 @@
                 <img src="images/detyam-head-logo.svg" alt="Anton Detyam Logo">
             </a>
             <div class="mobile-header-right">
-                <a href="tel:+79999999999" class="social-icon">
+                <a href="tel:+79528584412" class="social-icon">
                     <img src="images/whatsap.svg" alt="Whatsapp">
                 </a>
                 <button class="close-btn" id="closeMenuBtn"></button>
@@ -1358,14 +626,12 @@
             <a href="#for-whom">Для кого</a>
             <a href="#get">Что вы получаете</a>
         </nav>
-        <button class="primary-btn mobile-menu-btn">Заказать звонок</button>
+        <button class="primary-btn mobile-menu-btn" data-modal="modal-call">Заказать звонок</button>
         <div class="mobile-contacts">
-            <a href="#" class="social-icon">
-                <img src="images/wk.svg" alt="VK Icon">
-            </a>
+            <a href="https://vk.com/balanov_anton" target="_blank" rel="noopener" class="social-icon"><img src="images/wk.svg" alt="VK Icon"></a>
             <div class="contact-block">
                 <span class="contact-label">Телефон</span>
-                <a href="tel:+79999999999" class="contact-value">+7 (999) 999-99-99</a>
+                <a href="tel:+79528584412" class="contact-value">+7 (952) 858-44-12</a>
             </div>
             <div class="contact-block">
                 <span class="contact-label">Почта</span>
@@ -1381,62 +647,61 @@
     <!-- Hero -->
     <section class="hero container">
         <div class="hero-content">
-            <h1 class="hero-title">
-                ЗНАНИЯ &ndash; <br>
-                <span class="highlight">БЕСПЛАТНО.</span>
-            </h1>
+            <h1 class="hero-title">ЗНАНИЯ &ndash; <br><span class="highlight">БЕСПЛАТНО.</span></h1>
             <p class="hero-subtitle">Для организаций, которые <br> растят новое поколение.</p>
-            <button class="outline-btn">Получить доступ</button>
+            <button class="outline-btn" data-modal="modal-access">Получить доступ</button>
         </div>
         <div class="hero-image">
             <img src="images/zadaniya-besplatno.svg" alt="Знания бесплатно">
         </div>
-        <button class="outline-btn mobile-hero-btn">Получить доступ</button>
+        <button class="outline-btn mobile-hero-btn" data-modal="modal-access">Получить доступ</button>
     </section>
 
-    <!-- =============================================
-         SECTION 2 — АВТОР ПРОЕКТА
-    ============================================= -->
+    <!-- SECTION 2 — АВТОР -->
     <section class="section-author" id="author">
         <div class="container">
             <h2 class="section-title-brush">АВТОР ПРОЕКТА</h2>
-
             <div class="author-top">
                 <div class="author-image-wrapper">
                     <img src="images/anton-balanov.svg" alt="Антон Баланов" class="author-photo">
-                    <div class="badge badge-red">Профессор</div>
-                    <div class="badge badge-light">Советник по экономике<br>и социологии РАЕН</div>
+                    <!-- Профессор badge → istina link -->
+                    <a href="https://istina.msu.ru/profile/Balanov.Anton/?clckid=769b53f2" target="_blank" rel="noopener" class="badge badge-red">Профессор</a>
+                    <!-- Советник badge → istina awards link -->
+                    <a href="https://istina.msu.ru/awards/682794314/?clckid=97d116dc" target="_blank" rel="noopener" class="badge badge-light">Советник по экономике<br>и социологии РАЕН</a>
                 </div>
-
                 <div class="author-info">
                     <h3 class="author-name">Антон Николаевич<br>Баланов</h3>
                     <ul class="stats-list">
-                        <li><span class="number">950+</span> Выпускников</li>
-                        <li><span class="number">4,9</span> Средняя оценка на платформе Сколково</li>
+                        <li>
+                            <a href="https://stepik.org/users/474768438/profile" target="_blank" rel="noopener">
+                                <span class="number">950+</span> Выпускников
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://stepik.org/users/474768438/profile" target="_blank" rel="noopener">
+                                <span class="number">4,9</span> Средняя оценка на платформе Сколково
+                            </a>
+                        </li>
                     </ul>
                     <div class="cards-grid-author">
-                        <div class="card-author">
-                            <div class="card-number">87</div>
-                            <div class="card-text-brush">Книг</div>
-                        </div>
-                        <div class="card-author">
-                            <div class="card-number">3</div>
-                            <div class="card-text-brush">Патента</div>
-                        </div>
-                        <div class="card-author">
-                            <div class="card-number">90+</div>
-                            <div class="card-text-brush">Курсов</div>
-                        </div>
+                        <!-- 87 книг → lanbook -->
+                        <a href="https://e.lanbook.com/search?query=%D0%91%D0%B0%D0%BB%D0%B0%D0%BD%D0%BE%D0%B2" target="_blank" rel="noopener" style="text-decoration:none;">
+                            <div class="card-author"><div class="card-number">87</div><div class="card-text-brush">Книг</div></div>
+                        </a>
+                        <!-- 3 патента → istina -->
+                        <a href="https://istina.msu.ru/profile/Balanov.Anton/?clckid=769b53f2" target="_blank" rel="noopener" style="text-decoration:none;">
+                            <div class="card-author"><div class="card-number">3</div><div class="card-text-brush">Патента</div></div>
+                        </a>
+                        <!-- 90+ курсов → stepik -->
+                        <a href="https://stepik.org/users/474768438/profile" target="_blank" rel="noopener" style="text-decoration:none;">
+                            <div class="card-author"><div class="card-number">90+</div><div class="card-text-brush">Курсов</div></div>
+                        </a>
                     </div>
                 </div>
             </div>
-
             <div class="author-bottom">
                 <div class="bottom-col">
-                    <h4 class="bottom-title">
-                        Осуществлял <br>
-                        <span class="highlight-line">руководство продуктами</span>
-                    </h4>
+                    <h4 class="bottom-title">Осуществлял <br><span class="highlight-line">руководство продуктами</span></h4>
                     <div class="btn-grid">
                         <div class="btn-outline-sm">VK</div>
                         <div class="btn-outline-sm">Сбер</div>
@@ -1446,18 +711,9 @@
                 </div>
                 <div class="bottom-col">
                     <ul class="checklist">
-                        <li>
-                            <img src="images/check-icon.svg" alt="check" class="check-icon">
-                            <span>Спикер СМИ: Первый, РБК, Известия, РИА, Коммерсантъ</span>
-                        </li>
-                        <li>
-                            <img src="images/check-icon.svg" alt="check" class="check-icon">
-                            <span>Международная учёная степень Ph.D.</span>
-                        </li>
-                        <li>
-                            <img src="images/check-icon.svg" alt="check" class="check-icon">
-                            <span>ТОП-Менеджер и профессор — почётный Доктор наук</span>
-                        </li>
+                        <li><img src="images/check-icon.svg" alt="check" class="check-icon"><span>Спикер СМИ: Первый, РБК, Известия, РИА, Коммерсантъ</span></li>
+                        <li><img src="images/check-icon.svg" alt="check" class="check-icon"><span>Международная учёная степень Ph.D.</span></li>
+                        <li><img src="images/check-icon.svg" alt="check" class="check-icon"><span>ТОП-Менеджер и профессор — почётный Доктор наук</span></li>
                     </ul>
                 </div>
                 <div class="bottom-col">
@@ -1473,88 +729,47 @@
         </div>
     </section>
 
-    <!-- =============================================
-         SECTION 3 — ПОЛИТИКА ТРЁХ БЕЗ
-    ============================================= -->
+    <!-- SECTION 3 — ПОЛИТИКА -->
     <section class="section-policy">
         <div class="container">
             <div class="benefits-row">
                 <div class="benefit-item">
                     <img src="images/red-star.svg" alt="star" class="benefit-icon">
-                    <p class="benefit-text">
-                        <span class="brush-underline">Реальный практик</span> — помогает детям обрести востребованное место в жизни!
-                    </p>
+                    <p class="benefit-text"><span class="brush-underline">Реальный практик</span> — помогает детям обрести востребованное место в жизни!</p>
                 </div>
                 <div class="benefit-item">
                     <img src="images/red-star.svg" alt="star" class="benefit-icon">
-                    <p class="benefit-text">
-                        <span class="brush-underline">Лично</span> проводит лекции и мастер-классы в очном и офлайн формате
-                    </p>
+                    <p class="benefit-text"><span class="brush-underline">Лично</span> проводит лекции и мастер-классы в очном и офлайн формате</p>
                 </div>
             </div>
-
-            <h2 class="policy-title">
-                ПОЛИТИКА <span class="brush-circle"><span>ТРЁХ «БЕЗ»</span></span>
-            </h2>
-
+            <h2 class="policy-title">ПОЛИТИКА <span class="brush-circle"><span>ТРЁХ «БЕЗ»</span></span></h2>
             <div class="policy-content">
                 <div class="policy-image-wrapper">
                     <img src="images/listening-to-feedback.svg" alt="Политика трёх без">
                 </div>
                 <div class="policy-list">
-                    <div class="list-item">
-                        <span class="list-number">01</span>
-                        <span class="list-text">Без денег</span>
-                    </div>
-                    <div class="list-item">
-                        <span class="list-number">02</span>
-                        <span class="list-text">Без бюрократии</span>
-                    </div>
-                    <div class="list-item">
-                        <span class="list-number">03</span>
-                        <span class="list-text">Без исключений</span>
-                    </div>
+                    <div class="list-item"><span class="list-number">01</span><span class="list-text">Без денег</span></div>
+                    <div class="list-item"><span class="list-number">02</span><span class="list-text">Без бюрократии</span></div>
+                    <div class="list-item"><span class="list-number">03</span><span class="list-text">Без исключений</span></div>
                 </div>
                 <div class="policy-quote">
-                    <p class="quote-text">
-                        «То, что стоило бы выпускнику кредита, мы отдаём даром.
-                        <span class="quote-bold">Помогаем обрести себя, а не долги</span>».
-                    </p>
+                    <p class="quote-text">«То, что стоило бы выпускнику кредита, мы отдаём даром. <span class="quote-bold">Помогаем обрести себя, а не долги</span>».</p>
                     <p class="quote-author">Антон Баланов</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- =============================================
-         SECTION 4 — ВЫПУСКНИКИ ДЕТСКИХ ДОМОВ
-    ============================================= -->
+    <!-- SECTION 4 — ВЫПУСКНИКИ -->
     <section class="section-graduates">
         <div class="container">
-            <h1 class="main-title-brush">
-                ВЫПУСКНИКИ ДЕТСКИХ ДОМОВ И
-                <span class="circle-crisis"><span>ПОДРОСТКИ В КРИЗИСЕ</span></span>
-            </h1>
-
+            <h1 class="main-title-brush">ВЫПУСКНИКИ ДЕТСКИХ ДОМОВ И <span class="circle-crisis"><span>ПОДРОСТКИ В КРИЗИСЕ</span></span></h1>
             <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-number">47%</div>
-                    <div class="stat-text">не могут найти<br>стабильную работу</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">38%</div>
-                    <div class="stat-text">теряют жильё</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">&gt;90%</div>
-                    <div class="stat-text">не получают высшее<br>образование</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">30%</div>
-                    <div class="stat-text">в конфликте<br>с законом</div>
-                </div>
+                <div class="stat-card"><div class="stat-number">47%</div><div class="stat-text">не могут найти<br>стабильную работу</div></div>
+                <div class="stat-card"><div class="stat-number">38%</div><div class="stat-text">теряют жильё</div></div>
+                <div class="stat-card"><div class="stat-number">&gt;90%</div><div class="stat-text">не получают высшее<br>образование</div></div>
+                <div class="stat-card"><div class="stat-number">30%</div><div class="stat-text">в конфликте<br>с законом</div></div>
             </div>
-
             <div class="content-panels">
                 <section class="panel">
                     <h2 class="panel-title"><span class="title-underline">БЕЗ ПОДДЕРЖКИ</span></h2>
@@ -1565,7 +780,6 @@
                         <div class="item-box"><span>Тюрьма</span><img src="images/arrow.svg" alt="arrow" class="arrow-icon"></div>
                     </div>
                 </section>
-
                 <section class="panel">
                     <h2 class="panel-title right"><span class="title-underline">С НАШИМИ МАТЕРИАЛАМИ<br>И ЖИВЫМИ ЗАНЯТИЯМИ</span></h2>
                     <img src="images/boy-illustration.svg" alt="С материалами" class="illustration illus-2">
@@ -1580,15 +794,10 @@
         </div>
     </section>
 
-    <!-- =============================================
-         SECTION 5 — ДЛЯ КОГО + ПАРТНЁРЫ
-    ============================================= -->
+    <!-- SECTION 5 — ДЛЯ КОГО -->
     <section class="section-for-whom" id="for-whom">
         <div class="container">
-            <h2 class="section-title-large">
-                <span class="brush-circle-sm"><span>ДЛЯ КОГО</span></span> ПРОЕКТ
-            </h2>
-
+            <h2 class="section-title-large"><span class="brush-circle-sm"><span>ДЛЯ КОГО</span></span> ПРОЕКТ</h2>
             <div class="for-whom-grid">
                 <div class="card-fw card-fw-1">
                     <p class="card-fw-text">Школы, Колледжи<br>и государственные<br>программы социализации</p>
@@ -1606,143 +815,90 @@
                     <img src="images/students-class.svg" alt="Students in class">
                 </div>
                 <div class="card-fw card-fw-4">
-                    <p class="card-fw-text" style="max-width: 100%;">Социально-<br>реабилитационные центры</p>
+                    <p class="card-fw-text" style="max-width:100%;">Социально-<br>реабилитационные центры</p>
                     <img src="images/icon-buildings.svg" alt="buildings" class="card-fw-icon">
-                    <button class="card-button">Узнать подробнее</button>
+                    <button class="card-button" data-modal="modal-about">Узнать подробнее</button>
                 </div>
             </div>
 
             <div class="partners-header">
-                <h2 class="section-title-large">
-                    НАШИ <span class="brush-circle-sm"><span>ПАРТНЁРЫ</span></span>
-                </h2>
-                <a href="#" class="btn-outline-lg desktop-btn-fw">Присоединиться бесплатно</a>
+                <h2 class="section-title-large">НАШИ <span class="brush-circle-sm"><span>ПАРТНЁРЫ</span></span></h2>
+                <button class="btn-outline-lg desktop-btn-fw" data-modal="modal-partner">Присоединиться бесплатно</button>
             </div>
-
             <div class="partners-grid" id="partners-scroll-container">
-                <div class="partner-card"><img src="images/partner-1.svg" alt="Будущее дети"></div>
+                <!-- Partner 1 → futurekids link -->
+                <a href="https://futurekids.ru/expert/57?clckid=71ce75be" target="_blank" rel="noopener" style="text-decoration:none;">
+                    <div class="partner-card"><img src="images/partner-1.svg" alt="Будущее дети"></div>
+                </a>
                 <div class="partner-card"><img src="images/partner-2.svg" alt="Первые"></div>
                 <div class="partner-card"><img src="images/partner-3.svg" alt="Дети всей страны"></div>
                 <div class="partner-card"><img src="images/partner-4.svg" alt="Труд Крут"></div>
             </div>
-
             <div class="mobile-arrows-fw">
                 <img src="images/arrow-left.svg" alt="left" class="mobile-arrow-img" id="arrow-left">
                 <img src="images/arrow-right.svg" alt="right" class="mobile-arrow-img" id="arrow-right">
             </div>
-
-            <a href="#" class="btn-outline-lg mobile-btn-fw">Присоединиться бесплатно</a>
+            <button class="btn-outline-lg mobile-btn-fw" data-modal="modal-partner">Присоединиться бесплатно</button>
         </div>
     </section>
 
-    <!-- =============================================
-         SECTION 6 — ЧТО ВЫ ПОЛУЧАЕТЕ
-    ============================================= -->
+    <!-- SECTION 6 — ЧТО ВЫ ПОЛУЧАЕТЕ -->
     <section class="section-get" id="get">
         <div class="container">
             <div class="header-get">
                 <h1 class="main-title-get">
-                    <span class="highlight-wrapper-get">
-                        ЧТО ВЫ ПОЛУЧАЕТЕ
-                        <img src="images/circle.svg" alt="Circle" class="title-circle-get">
-                    </span>
-                    ДЛЯ СВОЕЙ ОРГАНИЗАЦИИ
+                    <span class="highlight-wrapper-get">ЧТО ВЫ ПОЛУЧАЕТЕ<img src="images/circle.svg" alt="Circle" class="title-circle-get"></span> ДЛЯ СВОЕЙ ОРГАНИЗАЦИИ
                 </h1>
                 <p class="subtitle-get">Устойчивое и практическое место в жизни<br>каждого вашего подопечного</p>
             </div>
-
             <div class="card-get">
                 <div class="card-get-img"><img src="images/ill-courses.svg" alt="Courses"></div>
                 <div class="card-get-title"><h2>90+ готовых<br>онлайн-курсов</h2></div>
-                <div class="card-get-tag"><span class="red-dot"></span> Бесплатно</div>
+                <div class="card-get-tag" data-modal="modal-call"><span class="red-dot"></span> Бесплатно</div>
                 <div class="card-get-desc">Не ознакомительные лекции.<br>Полноценные траектории до профессии.</div>
                 <div class="card-get-list">
                     <strong>Курсы:</strong>
-                    — Python для начинающих<br>
-                    — Data-аналитик<br>
-                    — DevOps-инженер<br>
-                    — Кибербезопасность<br>
-                    — Финансовая грамотность<br>
-                    — Бизнес-анализ<br>
-                    — Управление проектами<br>
-                    — Agile, Scrum, UX/UI<br>
-                    — и ещё <span class="underline-wrapper">десятки направлений<img src="images/underline1.svg" alt="underline" class="squiggly-line"></span>
+                    — Python для начинающих<br>— Data-аналитик<br>— DevOps-инженер<br>— Кибербезопасность<br>— Финансовая грамотность<br>— Бизнес-анализ<br>— Управление проектами<br>— Agile, Scrum, UX/UI<br>— и ещё <span class="underline-wrapper">десятки направлений<img src="images/underline1.svg" alt="underline" class="squiggly-line"></span>
                 </div>
             </div>
-
             <div class="card-get">
                 <div class="card-get-img"><img src="images/ill-books.svg" alt="Books"></div>
                 <div class="card-get-title"><h2>87 книг<br>в цифре</h2></div>
-                <div class="card-get-tag"><span class="red-dot"></span> Просто оставьте заявку</div>
+                <div class="card-get-tag" data-modal="modal-materials"><span class="red-dot"></span> Просто оставьте заявку</div>
                 <div class="card-get-desc">Учебные пособия по IT, управлению,<br>цифровым продуктам.</div>
                 <div class="card-get-list">
                     <strong>Для каждого подопечного.</strong>
-                    — Комплексно и внушительно<br>
-                    — 90+ курсов<br>
-                    — 87 книг<br>
-                    — 3 патента<br>
-                    — 10 научных публикаций<br>
-                    — <span class="underline-wrapper">950+ сертификатов<img src="images/underline1.svg" alt="underline" class="squiggly-line"></span> уже выдано
+                    — Комплексно и внушительно<br>— 90+ курсов<br>— 87 книг<br>— 3 патента<br>— 10 научных публикаций<br>— <a href="https://stepik.org/users/474768438/certificates" target="_blank" rel="noopener" class="cert-link underline-wrapper"><span class="underline-wrapper">950+ сертификатов<img src="images/underline1.svg" alt="underline" class="squiggly-line"></span></a> уже выдано
                 </div>
             </div>
-
             <div class="card-get">
                 <div class="card-get-img"><img src="images/ill-lectures.svg" alt="Lectures"></div>
                 <div class="card-get-title"><h2>Живые лекции,<br>семинары,<br>мастер-классы</h2></div>
-                <div class="card-get-tag"><span class="red-dot"></span> Бесплатно</div>
-                <div class="card-get-desc">
-                    Проводит <strong>лично автор проекта.</strong><br>
-                    <span class="underline-wrapper">Очно или онлайн.<img src="images/underline2.svg" alt="underline" class="squiggly-line"></span>
-                </div>
+                <div class="card-get-tag" data-modal="modal-call"><span class="red-dot"></span> Бесплатно</div>
+                <div class="card-get-desc">Проводит <strong>лично автор проекта.</strong><br><span class="underline-wrapper">Очно или онлайн.<img src="images/underline2.svg" alt="underline" class="squiggly-line"></span></div>
                 <div class="card-get-list">
                     <strong>Примеры тем:</strong>
-                    — Как найти первую работу и не бояться собеседований<br>
-                    — Цифровые профессии: понятный маршрут<br>
-                    — Безопасность в интернете: реальные кейсы<br>
-                    — Как создавались Госуслуги: урок из практики<br>
-                    — Мастер-класс по Python или аналитике данных
+                    — Как найти первую работу и не бояться собеседований<br>— Цифровые профессии: понятный маршрут<br>— Безопасность в интернете: реальные кейсы<br>— Как создавались Госуслуги: урок из практики<br>— Мастер-класс по Python или аналитике данных
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- =============================================
-         SECTION 7 — СПРАВКА ДЛЯ РУКОВОДИТЕЛЯ
-    ============================================= -->
+    <!-- SECTION 7 — СПРАВКА -->
     <section class="section-spravka">
         <div class="container">
             <h1 class="spravka-title">СПРАВКА ДЛЯ РУКОВОДИТЕЛЯ</h1>
-
             <div class="info-grid">
-                <div class="info-item">
-                    <img src="images/red-star.svg" alt="*" class="icon-red-star">
-                    <p>Коммерческие аналоги подобной подготовки стоят сотни тысяч рублей и занимают от полугода до года очного обучения</p>
-                </div>
-                <div class="info-item">
-                    <img src="images/red-star.svg" alt="*" class="icon-red-star">
-                    <p>Нередко — с кредитной нагрузкой на семью и без гарантии качества.</p>
-                </div>
-                <div class="info-item">
-                    <img src="images/red-star.svg" alt="*" class="icon-red-star">
-                    <p>Здесь: <strong>полный доступ — бесплатно.</strong> Преподаёт практик, руководивший продуктами в VK, Сбер, ВТБ, Госуслуги.</p>
-                </div>
-                <div class="info-item">
-                    <img src="images/red-star.svg" alt="*" class="icon-red-star">
-                    <p>«То, что стоило бы выпускнику кредита, <strong>мы отдаём даром.</strong> Помогаем обрести себя, а не долги».</p>
-                </div>
+                <div class="info-item"><img src="images/red-star.svg" alt="*" class="icon-red-star"><p>Коммерческие аналоги подобной подготовки стоят сотни тысяч рублей и занимают от полугода до года очного обучения</p></div>
+                <div class="info-item"><img src="images/red-star.svg" alt="*" class="icon-red-star"><p>Нередко — с кредитной нагрузкой на семью и без гарантии качества.</p></div>
+                <div class="info-item"><img src="images/red-star.svg" alt="*" class="icon-red-star"><p>Здесь: <strong>полный доступ — бесплатно.</strong> Преподаёт практик, руководивший продуктами в VK, Сбер, ВТБ, Госуслуги.</p></div>
+                <div class="info-item"><img src="images/red-star.svg" alt="*" class="icon-red-star"><p>«То, что стоило бы выпускнику кредита, <strong>мы отдаём даром.</strong> Помогаем обрести себя, а не долги».</p></div>
             </div>
-
             <div class="quote-section">
                 <img src="images/quote-left.svg" class="quote-icon-big left" alt="«">
                 <div class="quote-content">
                     <div class="quote-title">Почему мы это делаем</div>
-                    <div>
-                        <span class="underline-wrapper">
-                            «Знания — не товар,
-                            <img src="images/underline1.svg" alt="underline" class="quote-underline">
-                        </span>
-                        когда речь о будущем страны и мира».
-                    </div>
+                    <div><span class="underline-wrapper">«Знания — не товар,<img src="images/underline1.svg" alt="underline" class="quote-underline"></span> когда речь о будущем страны и мира».</div>
                 </div>
                 <img src="images/quote-right.svg" class="quote-icon-big right" alt="»">
                 <div class="quote-author-big">Антон Баланов, основатель «Антон Детям»</div>
@@ -1750,83 +906,46 @@
         </div>
     </section>
 
-    <!-- =============================================
-         SECTION 8 — КАК ПОЛУЧИТЬ ДОСТУП
-    ============================================= -->
+    <!-- SECTION 8 — КАК ПОЛУЧИТЬ -->
     <section class="section-access">
         <div class="container">
             <div class="access-grid">
                 <div class="text-header-access">
-                    <h1 class="access-title">
-                        КАК ПОЛУЧИТЬ
-                        <span class="decor-text">ДОСТУП
-                            <img src="" class="decor-circle" alt="">
-                        </span>
-                        <span class="decor-text">К МАТЕРИАЛАМ
-                            <img src="images/circle.svg" class="decor-circle" alt="circle">
-                        </span>
-                    </h1>
+                    <h1 class="access-title">КАК ПОЛУЧИТЬ <span class="decor-text">ДОСТУП<img src="" class="decor-circle" alt=""></span> <span class="decor-text">К МАТЕРИАЛАМ<img src="images/circle.svg" class="decor-circle" alt="circle"></span></h1>
                     <div class="description-access">
                         <p>Для детей. Для педагогов. Для наставников.</p>
                         <p>Всё, что от вас требуется — подать заявку и получить материалы,<br> обменявшись логотипами.</p>
-                        <p>
-                            <span class="decor-text">Никакой оплаты.<img src="images/underline1.svg" class="decor-line" alt="underline"></span>
-                            <span class="decor-text">Никаких скрытых условий.<img src="images/underline1.svg" class="decor-line" alt="underline"></span>
-                        </p>
+                        <p><span class="decor-text">Никакой оплаты.<img src="images/underline1.svg" class="decor-line" alt="underline"></span> <span class="decor-text">Никаких скрытых условий.<img src="images/underline1.svg" class="decor-line" alt="underline"></span></p>
                     </div>
                 </div>
-
-                <div class="illustration-box-access">
-                    <img src="images/ill-access.svg" alt="Illustration" class="illustration-access">
-                </div>
-
+                <div class="illustration-box-access"><img src="images/ill-access.svg" alt="Illustration" class="illustration-access"></div>
                 <div class="steps-box-access">
-                    <div class="step">
-                        <div class="step-num">01</div>
-                        <div class="step-text"><b>Оставьте заявку</b> от организации.</div>
-                    </div>
-                    <div class="step">
-                        <div class="step-num">02</div>
-                        <div class="step-text"><b>Обменяйтесь с нами логотипами</b> — вы партнёр,<br> мы ваш образовательный ресурс.</div>
-                    </div>
-                    <div class="step">
-                        <div class="step-num">03</div>
-                        <div class="step-text">В течение <b>3 рабочих дней</b> получите доступ<br> ко всем материалам.</div>
-                    </div>
+                    <div class="step"><div class="step-num">01</div><div class="step-text"><b>Оставьте заявку</b> от организации.</div></div>
+                    <div class="step"><div class="step-num">02</div><div class="step-text"><b>Обменяйтесь с нами логотипами</b> — вы партнёр,<br> мы ваш образовательный ресурс.</div></div>
+                    <div class="step"><div class="step-num">03</div><div class="step-text">В течение <b>3 рабочих дней</b> получите доступ<br> ко всем материалам.</div></div>
                 </div>
-
                 <div class="button-box-access">
-                    <button class="btn-access">Получить доступ</button>
+                    <button class="btn-access" data-modal="modal-access">Получить доступ</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- =============================================
-         SECTION 9 — КОНТАКТЫ + FOOTER
-    ============================================= -->
+    <!-- SECTION 9 — КОНТАКТЫ -->
     <section class="section-contacts">
         <div class="container">
             <h2 class="contacts-section-title">КОНТАКТЫ</h2>
-
             <div class="contacts-grid">
                 <div class="card-contact">
-                    <div class="info-block">
-                        <span class="info-label">Телефон</span>
-                        <div class="info-value">+7 (999) 999-99-99</div>
-                    </div>
-                    <div class="info-block">
-                        <span class="info-label">Почта</span>
-                        <div class="info-value">pochta@mail.ru</div>
-                    </div>
+                    <div class="info-block"><span class="info-label">Телефон</span><div class="info-value"><a href="tel:+79528584412">+7 (952) 858-44-12</a></div></div>
+                    <div class="info-block"><span class="info-label">Почта</span><div class="info-value"><a href="mailto:pochta@mail.ru">pochta@mail.ru</a></div></div>
                 </div>
-
                 <div class="middle-col">
                     <div class="social-card">
-                        <span class="info-label" style="margin-bottom: 0;">Социальные сети</span>
+                        <span class="info-label" style="margin-bottom:0;">Социальные сети</span>
                         <div class="social-icons">
-                            <img src="images/whatsap.svg" alt="WA" class="icon-img">
-                            <img src="images/wk.svg" alt="VK" class="icon-img">
+                            <a href="tel:+79528584412"><img src="images/whatsap.svg" alt="WA" class="icon-img"></a>
+                            <a href="https://vk.com/balanov_anton" target="_blank" rel="noopener"><img src="images/wk.svg" alt="VK" class="icon-img"></a>
                         </div>
                     </div>
                     <div class="card-contact">
@@ -1838,17 +957,13 @@
                         <p class="desc-text">Антон помогает знаниями, а не деньгами.<br>Пусть эти знания дойдут до тех, кому они нужнее всего.</p>
                     </div>
                 </div>
-
                 <div class="card-contact action-card">
                     <p class="action-text">Если у вас остались<br>вопросы — пишите!</p>
-                    <button class="btn-contact">Связаться с нами</button>
+                    <button class="btn-contact" data-modal="modal-contact">Связаться с нами</button>
                 </div>
             </div>
-
             <footer class="footer">
-                <div class="footer-logo">
-                    <img src="images/detyam-head-logo.svg" alt="Антон Детям">
-                </div>
+                <div class="footer-logo"><img src="images/detyam-head-logo.svg" alt="Антон Детям"></div>
                 <div class="footer-links">
                     <a href="#">Политика конфиденциальности</a>
                     <a href="#">Согласие на обработку персональных данных</a>
@@ -1858,48 +973,281 @@
         </div>
     </section>
 
-    <!-- =============================================
-         JAVASCRIPT
-    ============================================= -->
+    <!-- MODALS -->
+
+    <!-- MODAL: Связаться с нами -->
+    <div class="modal-overlay" id="modal-contact">
+        <div class="modal-content">
+            <button class="modal-close-btn" data-close="modal-contact" aria-label="Закрыть">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#cc5a55" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <h2 class="modal-title">Оставьте заявку<br>и мы свяжемся с вами<br><span class="modal-decor-circle"><span>в ближайшее время</span></span></h2>
+            <div class="form-error"></div>
+            <div class="form-success"></div>
+            <form class="request-form">
+                <input type="text" class="form-input" placeholder="Имя*" required>
+                <input type="tel" class="form-input" placeholder="Телефон*" required>
+                <input type="email" class="form-input" placeholder="E-mail">
+                <input type="text" class="form-input" placeholder="Организация">
+                <button type="submit" class="submit-btn">Отправить заявку</button>
+            </form>
+            <p class="disclaimer-text">Нажимая на кнопку «Отправить заявку» вы даёте согласие на обработку персональных данных в соответствии с Политикой конфиденциальности и Законодательством РФ.</p>
+        </div>
+    </div>
+
+    <!-- MODAL 1: Заказать звонок -->
+    <div class="modal-overlay" id="modal-call">
+        <div class="modal-content">
+            <button class="modal-close-btn" data-close="modal-call" aria-label="Закрыть">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#cc5a55" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <h2 class="modal-title">Оставьте заявку<br>и мы свяжемся с вами<br><span class="modal-decor-circle"><span>в ближайшее время</span></span></h2>
+            <div class="form-error"></div>
+            <div class="form-success"></div>
+            <form class="request-form">
+                <input type="text" class="form-input" placeholder="Имя*" required>
+                <input type="tel" class="form-input" placeholder="Телефон*" required>
+                <input type="email" class="form-input" placeholder="E-mail">
+                <input type="text" class="form-input" placeholder="Организация">
+                <button type="submit" class="submit-btn">Заказать звонок</button>
+            </form>
+            <p class="disclaimer-text">Нажимая на кнопку «Заказать звонок» вы даёте согласие на обработку персональных данных в соответствии с Политикой конфиденциальности и Законодательством РФ.</p>
+        </div>
+    </div>
+
+    <!-- MODAL 2: Получить доступ -->
+    <div class="modal-overlay" id="modal-access">
+        <div class="modal-content">
+            <button class="modal-close-btn" data-close="modal-access" aria-label="Закрыть">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#cc5a55" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <h2 class="modal-title">ОСТАВЬТЕ ЗАЯВКУ НА МАТЕРИАЛЫ И МЫ СВЯЖЕМСЯ <span class="modal-decor-circle"><span>С ВАМИ В БЛИЖАЙШЕЕ ВРЕМЯ</span></span></h2>
+            <div class="form-error"></div>
+            <div class="form-success"></div>
+            <form class="request-form">
+                <input type="text" class="form-input" placeholder="Имя*" required>
+                <input type="tel" class="form-input" placeholder="Телефон*" required>
+                <input type="email" class="form-input" placeholder="E-mail">
+                <input type="text" class="form-input" placeholder="Организация">
+                <button type="submit" class="submit-btn">Запросить материалы</button>
+            </form>
+            <p class="disclaimer-text">Нажимая на кнопку «Запросить материалы» вы даёте согласие на обработку персональных данных в соответствии с Политикой конфиденциальности и Законодательством РФ.</p>
+        </div>
+    </div>
+
+    <!-- MODAL 3: Узнать подробнее -->
+    <div class="modal-overlay" id="modal-about">
+        <div class="modal-content">
+            <button class="modal-close-btn" data-close="modal-about" aria-label="Закрыть">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#cc5a55" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <h2 class="modal-title">ХОТИТЕ <span class="modal-decor-circle"><span>УЗНАТЬ ПОДРОБНЕЕ</span></span> О ПРОЕКТЕ?</h2>
+            <p class="modal-subtitle">Оставьте заявку и мы свяжемся с вами<br>в ближайшее время!</p>
+            <div class="form-error"></div>
+            <div class="form-success"></div>
+            <form class="request-form">
+                <input type="text" class="form-input" placeholder="Имя*" required>
+                <input type="tel" class="form-input" placeholder="Телефон*" required>
+                <input type="email" class="form-input" placeholder="E-mail">
+                <input type="text" class="form-input" placeholder="Организация">
+                <button type="submit" class="submit-btn">Отправить заявку</button>
+            </form>
+            <p class="disclaimer-text">Нажимая на кнопку «Отправить заявку» вы даёте согласие на обработку персональных данных в соответствии с Политикой конфиденциальности и Законодательством РФ.</p>
+        </div>
+    </div>
+
+    <!-- MODAL 4: Стать партнёром -->
+    <div class="modal-overlay" id="modal-partner">
+        <div class="modal-content">
+            <button class="modal-close-btn" data-close="modal-partner" aria-label="Закрыть">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#cc5a55" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <h2 class="modal-title">СТАНЬТЕ <span class="modal-decor-circle"><span>НАШИМ ПАРТНЁРОМ!</span></span></h2>
+            <p class="modal-subtitle">Оставьте заявку и мы свяжемся с вами<br>в ближайшее время!</p>
+            <div class="form-error"></div>
+            <div class="form-success"></div>
+            <form class="request-form">
+                <input type="text" class="form-input" placeholder="Имя*" required>
+                <input type="tel" class="form-input" placeholder="Телефон*" required>
+                <input type="email" class="form-input" placeholder="E-mail">
+                <input type="text" class="form-input" placeholder="Организация">
+                <button type="submit" class="submit-btn">Отправить заявку</button>
+            </form>
+            <p class="disclaimer-text">Нажимая на кнопку «Отправить заявку» вы даёте согласие на обработку персональных данных в соответствии с Политикой конфиденциальности и Законодательством РФ.</p>
+        </div>
+    </div>
+
+    <!-- MODAL: Оставьте заявку (87 книг) -->
+    <div class="modal-overlay" id="modal-materials">
+        <div class="modal-content">
+            <button class="modal-close-btn" data-close="modal-materials" aria-label="Закрыть">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#cc5a55" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <h2 class="modal-title">Оставьте заявку<br>и мы свяжемся с вами<br><span class="modal-decor-circle"><span>в ближайшее время</span></span></h2>
+            <div class="form-error"></div>
+            <div class="form-success"></div>
+            <form class="request-form">
+                <input type="text" class="form-input" placeholder="Имя*" required>
+                <input type="tel" class="form-input" placeholder="Телефон*" required>
+                <input type="email" class="form-input" placeholder="E-mail">
+                <input type="text" class="form-input" placeholder="Организация">
+                <button type="submit" class="submit-btn">Отправить заявку</button>
+            </form>
+            <p class="disclaimer-text">Нажимая на кнопку «Отправить заявку» вы даёте согласие на обработку персональных данных в соответствии с Политикой конфиденциальности и Законодательством РФ.</p>
+        </div>
+    </div>
+
     <script>
-        // Mobile menu
+        // ── Mobile menu ──
         const openMenuBtn = document.getElementById('openMenuBtn');
         const closeMenuBtn = document.getElementById('closeMenuBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileMenu   = document.getElementById('mobileMenu');
 
         openMenuBtn.addEventListener('click', () => {
             mobileMenu.classList.add('active');
             document.body.style.overflow = 'hidden';
         });
-
         closeMenuBtn.addEventListener('click', () => {
             mobileMenu.classList.remove('active');
             document.body.style.overflow = '';
         });
-
-        // Close menu on nav link click
-        mobileMenu.querySelectorAll('a').forEach(link => {
+        mobileMenu.querySelectorAll('a[href^="#"]').forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenu.classList.remove('active');
                 document.body.style.overflow = '';
             });
         });
 
-        // Partners scroll arrows
-        document.addEventListener("DOMContentLoaded", function () {
-            const scrollContainer = document.getElementById('partners-scroll-container');
-            const arrowLeft = document.getElementById('arrow-left');
-            const arrowRight = document.getElementById('arrow-right');
-            const scrollAmount = 270;
+        // ── Partners scroll ──
+        const scrollContainer = document.getElementById('partners-scroll-container');
+        const arrowLeft  = document.getElementById('arrow-left');
+        const arrowRight = document.getElementById('arrow-right');
+        if (arrowLeft && arrowRight && scrollContainer) {
+            arrowLeft.addEventListener('click',  () => scrollContainer.scrollBy({ left: -250, behavior: 'smooth' }));
+            arrowRight.addEventListener('click', () => scrollContainer.scrollBy({ left:  250, behavior: 'smooth' }));
+        }
 
-            if (arrowLeft && arrowRight && scrollContainer) {
-                arrowLeft.addEventListener('click', () => {
-                    scrollContainer.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-                });
-                arrowRight.addEventListener('click', () => {
-                    scrollContainer.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-                });
+        // ── Modal system ──
+        function openModal(id) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeModal(id) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.querySelectorAll('[data-modal]').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                mobileMenu.classList.remove('active');
+                openModal(btn.dataset.modal);
+            });
+        });
+
+        document.querySelectorAll('[data-close]').forEach(btn => {
+            btn.addEventListener('click', () => closeModal(btn.dataset.close));
+        });
+
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', e => {
+                if (e.target === overlay) closeModal(overlay.id);
+            });
+        });
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal-overlay.active').forEach(m => closeModal(m.id));
             }
+        });
+
+        // ── Form submission → send.php ──
+        document.querySelectorAll('.request-form').forEach(form => {
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+
+                const modal    = form.closest('.modal-overlay');
+                const modalId  = modal ? modal.id : 'unknown';
+                const btn      = form.querySelector('.submit-btn');
+
+                // Find success/error boxes that precede the form
+                const siblings = Array.from(modal.querySelector('.modal-content').children);
+                const formIdx  = siblings.indexOf(form);
+                const success  = siblings.slice(0, formIdx).reverse().find(el => el.classList.contains('form-success')) || null;
+                const errorBox = siblings.slice(0, formIdx).reverse().find(el => el.classList.contains('form-error')) || null;
+
+                const sourceMap = {
+                    'modal-call':      'Заказать звонок',
+                    'modal-access':    'Получить доступ / Материалы',
+                    'modal-about':     'Узнать подробнее / Связаться',
+                    'modal-partner':   'Стать партнёром',
+                    'modal-materials': 'Оставьте заявку (книги)',
+                    'modal-contact':   'Связаться с нами'
+                };
+
+                const inputs  = form.querySelectorAll('.form-input');
+                const name    = inputs[0]?.value.trim() || '';
+                const phone   = inputs[1]?.value.trim() || '';
+                const email   = inputs[2]?.value.trim() || '';
+                const org     = inputs[3]?.value.trim() || '';
+
+                if (!name || !phone) {
+                    if (errorBox) { errorBox.style.display = 'block'; errorBox.textContent = 'Пожалуйста, заполните обязательные поля (Имя и Телефон).'; }
+                    return;
+                }
+                if (errorBox) errorBox.style.display = 'none';
+
+                btn.disabled    = true;
+                btn.textContent = 'Отправляем...';
+
+                const data = new FormData();
+                data.append('source', sourceMap[modalId] || modalId);
+                data.append('name',   name);
+                data.append('phone',  phone);
+                data.append('email',  email);
+                data.append('org',    org);
+
+                try {
+                    const res  = await fetch('send.php', { method: 'POST', body: data });
+                    const json = await res.json();
+
+                    if (json.ok) {
+                        form.reset();
+                        if (success) { success.style.display = 'block'; success.textContent = '✓ Заявка отправлена! Мы свяжемся с вами в ближайшее время.'; }
+                        setTimeout(() => {
+                            if (success) success.style.display = 'none';
+                            closeModal(modalId);
+                            btn.disabled = false;
+                            btn.textContent = btn.dataset.origText || 'Отправить заявку';
+                        }, 2800);
+                    } else {
+                        throw new Error(json.error || 'Ошибка сервера');
+                    }
+                } catch (err) {
+                    if (errorBox) { errorBox.style.display = 'block'; errorBox.textContent = 'Не удалось отправить заявку. Попробуйте позже или напишите нам напрямую.'; }
+                    btn.disabled    = false;
+                    btn.textContent = btn.dataset.origText || 'Отправить заявку';
+                }
+            });
+
+            const btn = form.querySelector('.submit-btn');
+            if (btn) btn.dataset.origText = btn.textContent;
         });
     </script>
 </body>
